@@ -160,7 +160,7 @@ public class Ball : MonoBehaviour
         Color[] bounceColors = { Color.white, Color.green, Color.yellow, Color.magenta };
         int bounces = 0;
 
-        RaycastHit2D raycastHit = Physics2D.Raycast(raycastPointOnSurface, heading, fullraycastDistance, LayerMask.GetMask("Ball") ^ 0xFFFF);
+        RaycastHit2D raycastHit = Physics2D.CircleCast(gameObject.transform.position, radius * gameObject.transform.localScale.x, heading, fullraycastDistance, LayerMask.GetMask("Ball") ^ 0xFFFF);
         if (raycastHit.collider != null)
         {
             bounces++;
