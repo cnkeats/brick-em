@@ -55,6 +55,12 @@ public class Ball : MonoBehaviour
 
                 // Set the new start point to the centroid of the hit, plus a little bit to move it out of the normal
                 startPoint = raycastHit.centroid + raycastHit.normal * 0.002f;
+
+                // Mark the target as hit
+                if (raycastHit.collider.gameObject.GetComponent<Mino>())
+                {
+                    raycastHit.collider.gameObject.GetComponent<Mino>().Hit();
+                }
             }
             else
             {
