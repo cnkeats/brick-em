@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Mino : MonoBehaviour
 {
-
     public enum MinoState { HEALTHY, CRACKED, DESTROYED };
     
     public MinoState state = MinoState.HEALTHY;
