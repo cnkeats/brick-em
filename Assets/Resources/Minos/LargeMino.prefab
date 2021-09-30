@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6871758307956024696}
   - component: {fileID: 8486026218703142913}
   m_Layer: 11
-  m_Name: Mino
+  m_Name: LargeMino
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 2875489456944577740}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b4a3887ffb5063a4984922f580dcb7e9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1f6426a9b4d3a2e4899161782240648f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,8 +99,8 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.3
-  height: 0.3
+  width: 0.54
+  height: 0.54
 --- !u!61 &8486026218703142913
 BoxCollider2D:
   m_ObjectHideFlags: 0

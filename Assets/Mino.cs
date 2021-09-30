@@ -9,6 +9,8 @@ public class Mino : MonoBehaviour
     public MinoState state = MinoState.HEALTHY;
     public int maxHits = 1;
     public int currentHits = 0;
+    public float width = 0.24f;// + 0.03f;
+    public float height = 0.24f + 0.03f;
 
     public void Hit()
     {

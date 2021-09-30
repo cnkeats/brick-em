@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Level_0 : Level
@@ -9,22 +11,33 @@ public class Level_0 : Level
     public override List<GameObject> GetMinos()
     {
         List<GameObject> minos = new List<GameObject>();
-        Debug.Log(bounds);
 
-        float boundsWidth = bounds.size.x;
-        float boundsHeight = bounds.size.y;
+        Transform parent = GameObject.Find("Hittables").transform;
 
-        int minoCount = 20;
+        float minoWidth = (Resources.Load("Minos/LargeMino") as GameObject).GetComponent<Mino>().width;
+        float minoHeight = (Resources.Load("Minos/LargeMino") as GameObject).GetComponent<Mino>().height;
 
-        for (float width = -bounds.extents.x; width < bounds.extents.x; width += 0.3f)
+        float gameAreaTop = bounds.center.y + bounds.extents.y;
+        float gameAreaBottom = bounds.center.y - bounds.extents.y;
+        float gameAreaLeft = bounds.center.x - bounds.extents.x;
+        float gameAreaRight = -gameAreaLeft;
+
+        float gameAreaHeight = bounds.size.y;
+        float gameAreaWidth = bounds.size.x;
+
+        for (float height = gameAreaTop - minoHeight / 2; height > (gameAreaBottom + gameAreaTop) / 2; height -= minoHeight)
         {
-            GameObject gameObject = (GameObject)GameObject.Instantiate(Resources.Load("Minos/Mino"));
-            gameObject.name = "Mino";
+            for (float width = -bounds.extents.x + minoWidth / 2; width < bounds.extents.x - minoWidth / 2; width += minoWidth)
+            {
+                GameObject gameObject = (GameObject)GameObject.Instantiate(Resources.Load("Minos/LargeMino"));
+                gameObject.name = "LargeMino";
+                gameObject.transform.parent = parent;
 
-            Mino mino = gameObject.GetComponent<Mino>();
-            mino.transform.position = new Vector3(width, 1.0f, 0);
+                Mino mino = gameObject.GetComponent<Mino>();
+                mino.transform.position = new Vector3(width, height, 0);
 
-            minos.Add(gameObject);
+                minos.Add(gameObject);
+            }
         }
 
         return minos;
