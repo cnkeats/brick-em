@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 665843233}
   - component: {fileID: 665843232}
   - component: {fileID: 665843235}
+  - component: {fileID: 665843236}
   m_Layer: 10
   m_Name: Ball
   m_TagString: Untagged
@@ -233,13 +234,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 665843230}
-  m_LocalRotation: {x: -0, y: -0, z: -0.47214833, w: 0.8815191}
-  m_LocalPosition: {x: -2.21, y: -4.33, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.81814766, w: 0.57500815}
+  m_LocalPosition: {x: -1.641, y: -1.845, z: 0}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_Children: []
   m_Father: {fileID: 1285741223}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -56.348}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -109.8}
 --- !u!114 &665843232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,10 +254,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 0.54
-  speed: 997.7
+  speedLimit: 15
+  speed: 5000
   acceleration: 0
-  heading: {x: 0.8324155, y: 0.5541519}
-  newHeading: {x: 0.6206126, y: -0.7841169}
+  heading: {x: 0.3179493, y: -0.94805205}
+  newHeading: {x: -0.87174934, y: 0.48995167}
+  drawDebug: 1
+  drawGizmo: 0
 --- !u!58 &665843233
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -340,6 +344,22 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.27
+--- !u!70 &665843236
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665843230}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.88}
+  m_Size: {x: 1.108, y: 1.87}
+  m_Direction: 0
 --- !u!1 &1285741221
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,7 +463,7 @@ Transform:
   m_GameObject: {fileID: 1286222552}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -4, z: 0}
-  m_LocalScale: {x: 2, y: 0.25, z: 1}
+  m_LocalScale: {x: 2, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 1285741223}
   m_RootOrder: 0
@@ -537,8 +557,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e798dc7d45993d4f8e54161eb98293c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keySpeed: 1
-  leftBoundary: -2.7
-  rightboundary: 2.7
-  leftEdge: -1
-  rightEdge: 1
+  keySpeed: 4
+  leftBoundary: -2
+  rightboundary: 2
+  leftEdge: 1
+  rightEdge: -1

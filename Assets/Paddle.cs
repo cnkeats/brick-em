@@ -21,11 +21,11 @@ public class Paddle : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
         {
             gameObject.transform.Translate(Vector2.left * Time.deltaTime * keySpeed);
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
         {
             gameObject.transform.Translate(Vector2.right * Time.deltaTime * keySpeed);
         }
@@ -38,11 +38,11 @@ public class Paddle : MonoBehaviour
 
         if (leftEdge - leftBoundary < 0)
         {
-            gameObject.GetComponent<Rigidbody2D>().MovePosition(Vector2.left * (leftEdge - leftBoundary));
+            gameObject.transform.Translate(-(leftEdge - leftBoundary), 0, 0);
         }
         else if (rightEdge - rightboundary > 0)
         {
-            gameObject.GetComponent<Rigidbody2D>().MovePosition(Vector2.left * (rightEdge - rightboundary));
+            gameObject.transform.Translate(-(rightEdge - rightboundary), 0, 0);
         }
     }
 
