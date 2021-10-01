@@ -10,9 +10,12 @@ public class Level_0_Generator : LevelGenerator
 
     public override List<GameObject> GetMinos()
     {
+
+
+
         List<GameObject> minos = new List<GameObject>();
 
-        Transform parent = GameObject.Find("Hittables").transform;
+        Transform parent = GameObject.Find("Hitables").transform;
 
         float minoWidth = (Resources.Load("Minos/LargeMino") as GameObject).GetComponent<Mino>().width;
         float minoHeight = (Resources.Load("Minos/LargeMino") as GameObject).GetComponent<Mino>().height;

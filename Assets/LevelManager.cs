@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,8 +13,9 @@ public class LevelManager : MonoBehaviour
     public void LoadLevelFromGenerator(LevelGenerator levelGenerator)
     {
         this.levelGenerator = levelGenerator;
-        this.levelGenerator.bounds = GameObject.Find("GameArea").GetComponent<EdgeCollider2D>().bounds;
-        this.levelGenerator.GetMinos();
+        //this.levelGenerator.bounds = GameObject.Find("GameArea").GetComponent<EdgeCollider2D>().bounds;
+        levelGenerator.Generate();
+        //this.levelGenerator.GetMinos();
     }
 }
 
@@ -51,20 +53,40 @@ class LevelManagerEditor : Editor
 
             if (path.Length >= 0)
             {
-                GameObject level = GameObject.Find("Level");
-                PrefabUtility.SaveAsPrefabAssetAndConnect(level, path, InteractionMode.UserAction);
+                GameObject level = GameObject.Find("GameArea").GetComponentsInChildren<GameObject>().Where(child => child.tag == "Level").First();
+
+                if (level != null)
+                {
+                    PrefabUtility.SaveAsPrefabAssetAndConnect(level, path, InteractionMode.UserAction);
+                }
+                else
+                {
+                    Debug.Log("Unable to find GameArea - prefab NOT saved.");
+                }
             }
         }
         else if (GUILayout.Button("Load From Prefab", GUILayout.Width(100), GUILayout.ExpandWidth(true)))
         {
             string prefabname = Path.GetFileNameWithoutExtension(EditorUtility.OpenFilePanel("Select a Level", "C:\\Users\\Calvin\\Documents\\prog\\brick-em\\Assets\\Resources\\Levels", "prefab"));
 
-            GameObject gameObject = (GameObject)Instantiate(Resources.Load(string.Format("Levels/{0}", prefabname)));
-
-            if (gameObject != null)
+            GameObject gameArea = GameObject.Find("GameArea");
+            if (gameArea != null)
             {
-                DestroyImmediate(GameObject.Find("Level"));
-                gameObject.name = "Level";
+                GameObject.DestroyImmediate(gameArea);
+            }
+            gameArea = GameObject.Instantiate(Resources.Load("GameAreaTemplate")) as GameObject;
+            gameArea.name = gameArea.name.Replace("Template(Clone)", "");
+
+            GameObject prefabLevel = (GameObject)Instantiate(Resources.Load(string.Format("Levels/{0}", prefabname)));
+
+            if (prefabLevel != null)
+            {
+                prefabLevel.name = prefabLevel.name.Replace("(Clone)", "");
+                prefabLevel.transform.parent = gameArea.transform;
+            }
+            else
+            {
+                Debug.Log(string.Format("Failed to load level {0}", prefabname));
             }
 
         }
