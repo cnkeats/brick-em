@@ -53,7 +53,7 @@ class LevelManagerEditor : Editor
 
             if (path.Length >= 0)
             {
-                GameObject level = GameObject.Find("GameArea").GetComponentsInChildren<GameObject>().Where(child => child.tag == "Level").First();
+                GameObject level = GameObject.Find("GameArea").transform.GetChild(0).gameObject;
 
                 if (level != null)
                 {
