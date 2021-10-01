@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Level
+public abstract class LevelGenerator
 {
     abstract public string name { get; }
 

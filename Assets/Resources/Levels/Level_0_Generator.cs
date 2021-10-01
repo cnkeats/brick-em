@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class Level_0 : Level
+public class Level_0_Generator : LevelGenerator
 {
     public override string name { get { return "Level-0"; } }
 
@@ -25,16 +25,31 @@ public class Level_0 : Level
         float gameAreaHeight = bounds.size.y;
         float gameAreaWidth = bounds.size.x;
 
-        for (float height = gameAreaTop - minoHeight / 2; height > (gameAreaBottom + gameAreaTop) / 2; height -= minoHeight)
+        int gridWidth = Convert.ToInt32(gameAreaWidth / minoWidth);
+        int gridHeight = Convert.ToInt32(gameAreaHeight / minoHeight);
+
+        float gridLeftOffset = minoWidth / 2;
+        float gridTopOffset = minoHeight / 2;
+
+        for (int x = 0; x < gridWidth; x++)
         {
-            for (float width = -bounds.extents.x + minoWidth / 2; width < bounds.extents.x - minoWidth / 2; width += minoWidth)
+            for (int y = 0; y < gridHeight / 2; y++)
             {
+                if (x == gridWidth / 2 - 1 || x == gridWidth / 2)
+                {
+                    continue;
+                }
+
+
+                float posX = gameAreaLeft + gridLeftOffset + (x * minoWidth);
+                float posY = gameAreaTop - gridTopOffset - (y * minoHeight);
+
                 GameObject gameObject = (GameObject)GameObject.Instantiate(Resources.Load("Minos/LargeMino"));
                 gameObject.name = "LargeMino";
                 gameObject.transform.parent = parent;
 
                 Mino mino = gameObject.GetComponent<Mino>();
-                mino.transform.position = new Vector3(width, height, 0);
+                mino.transform.position = new Vector3(posX, posY, 0);
 
                 minos.Add(gameObject);
             }
