@@ -51,11 +51,11 @@ class LevelManagerEditor : Editor
 
             if (path.Length >= 0)
             {
-                GameObject levelContent = GameObject.Find("LevelContent");
-                PrefabUtility.SaveAsPrefabAssetAndConnect(levelContent, path, InteractionMode.UserAction);
+                GameObject level = GameObject.Find("Level");
+                PrefabUtility.SaveAsPrefabAssetAndConnect(level, path, InteractionMode.UserAction);
             }
         }
-        else if (GUILayout.Button("Load From File", GUILayout.Width(100), GUILayout.ExpandWidth(true)))
+        else if (GUILayout.Button("Load From Prefab", GUILayout.Width(100), GUILayout.ExpandWidth(true)))
         {
             string prefabname = Path.GetFileNameWithoutExtension(EditorUtility.OpenFilePanel("Select a Level", "C:\\Users\\Calvin\\Documents\\prog\\brick-em\\Assets\\Resources\\Levels", "prefab"));
 
@@ -63,9 +63,8 @@ class LevelManagerEditor : Editor
 
             if (gameObject != null)
             {
-                DestroyImmediate(GameObject.Find("LevelContent"));
-                gameObject.transform.parent = GameObject.Find("GameArea").transform;
-                gameObject.name = "LevelContent";
+                DestroyImmediate(GameObject.Find("Level"));
+                gameObject.name = "Level";
             }
 
         }
