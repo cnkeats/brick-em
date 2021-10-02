@@ -21,14 +21,14 @@ public class Paddle : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+        /*if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
         {
             gameObject.transform.Translate(Vector2.left * Time.deltaTime * keySpeed);
         }
         else if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
         {
             gameObject.transform.Translate(Vector2.right * Time.deltaTime * keySpeed);
-        }
+        }*/
 
         Collider2D collider = gameObject.GetComponent<Collider2D>();
         Bounds bounds = collider.bounds;

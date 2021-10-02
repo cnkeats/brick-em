@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class Level_0_Generator : LevelGenerator
+public class Level_0_Generator_OLD : LevelGenerator
 {
     public override string name { get { return "Level-0"; } }
 
