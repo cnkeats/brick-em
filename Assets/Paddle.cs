@@ -14,21 +14,39 @@ public class Paddle : MonoBehaviour
     [SerializeField]
     private float rightEdge;
 
-    // Start is called before the first frame update
-    void Start()
+    private InputManager inputManager;
+
+    private Camera cameraMain;
+
+    public Vector3 touchedPosition;
+
+    private void Awake()
     {
+        inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
+        cameraMain = Camera.main;
+    }
+
+    private void OnEnable()
+    {
+        inputManager.OnStartTouch += ProcessTouch;
+    }
+
+    private void OnDisable()
+    {
+        inputManager.OnEndTouch -= ProcessTouch;
+    }
+
+    public void ProcessTouch(Vector2 screenPosition, float time)
+    {
+        Vector3 screenCoordinates = new Vector3(screenPosition.x, screenPosition.y, cameraMain.nearClipPlane);
+        Vector3 worldCoordinates = cameraMain.ScreenToWorldPoint(screenCoordinates);
+        worldCoordinates.z = 0;
+        touchedPosition = worldCoordinates;
     }
 
     void FixedUpdate()
     {
-        /*if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
-        {
-            gameObject.transform.Translate(Vector2.left * Time.deltaTime * keySpeed);
-        }
-        else if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
-        {
-            gameObject.transform.Translate(Vector2.right * Time.deltaTime * keySpeed);
-        }*/
+        transform.position = touchedPosition;
 
         Collider2D collider = gameObject.GetComponent<Collider2D>();
         Bounds bounds = collider.bounds;
@@ -49,9 +67,6 @@ public class Paddle : MonoBehaviour
     private void OnDrawGizmos()
     {
         Debug.DrawLine(new Vector2(leftBoundary, gameObject.transform.position.y+1), new Vector2(rightboundary, gameObject.transform.position.y+1),Color.magenta);
-
-        Collider2D collider = gameObject.GetComponent<Collider2D>();
-        Bounds bounds = collider.bounds;
 
         Debug.DrawLine(
             new Vector2(leftEdge, gameObject.transform.position.y),

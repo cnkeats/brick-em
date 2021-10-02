@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Ball : MonoBehaviour
 {
@@ -170,9 +171,10 @@ public class Ball : MonoBehaviour
         //Handles.Label(point + new Vector2(1, 0) * 0.05f, label);
     }
 
-    public void DebugFunction()
+    public void DebugFunction(InputAction.CallbackContext c)
     {
         Debug.Log("DEBUG TEST!");
-        gameObject.transform.localScale *= 1.1f;
+
+        //gameObject.transform.localScale = new Vector3(val / 1000f, val / 1000f);
     }
 }
