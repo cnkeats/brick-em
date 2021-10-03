@@ -11,7 +11,8 @@
                     "id": "26764865-92b4-43aa-8e66-ffe5fc60446f",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "TouchPress",
@@ -19,7 +20,8 @@
                     "id": "a647bfd7-ddb5-46aa-95ca-e200c62131d9",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "TouchPosition",
@@ -27,7 +29,17 @@
                     "id": "a9f1bee8-a035-4118-bfd2-9afb0fd19319",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "FullTouch",
+                    "type": "PassThrough",
+                    "id": "1cce523a-951d-499d-8d1a-913f5bc56e60",
+                    "expectedControlType": "Touch",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -61,6 +73,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "TouchPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6ea13ac8-b25b-4342-8f0a-2174bb3c1c82",
+                    "path": "<Touchscreen>/primaryTouch",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FullTouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

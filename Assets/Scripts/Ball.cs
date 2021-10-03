@@ -23,6 +23,7 @@ public class Ball : MonoBehaviour
     void Start()
     {
         radius = gameObject.GetComponent<CircleCollider2D>().radius;
+        heading = transform.up;
     }
 
     // Update is called once per frame
@@ -46,7 +47,7 @@ public class Ball : MonoBehaviour
             {
                 if (raycastHit.collider.gameObject.tag.Equals("Paddle") && raycastHit.normal.y < 0.01f && heading.y < 0.01f) 
                 {
-                    break;
+                    //break;
                 }
 
                 // Bump our speed

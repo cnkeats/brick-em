@@ -20,6 +20,8 @@ public class Paddle : MonoBehaviour
 
     public Vector3 touchedPosition;
 
+    public float speedLimit = 1.0f;
+
     private void Awake()
     {
         inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
@@ -28,12 +30,14 @@ public class Paddle : MonoBehaviour
 
     private void OnEnable()
     {
-        inputManager.OnStartTouch += ProcessTouch;
+        //inputManager.OnStartTouch += ProcessTouch;
+        inputManager.OnActiveTouch += ProcessTouch;
     }
 
     private void OnDisable()
     {
-        inputManager.OnEndTouch -= ProcessTouch;
+        //inputManager.OnEndTouch -= ProcessTouch;
+        inputManager.OnActiveTouch -= ProcessTouch;
     }
 
     public void ProcessTouch(Vector2 screenPosition, float time)
@@ -41,15 +45,18 @@ public class Paddle : MonoBehaviour
         Vector3 screenCoordinates = new Vector3(screenPosition.x, screenPosition.y, cameraMain.nearClipPlane);
         Vector3 worldCoordinates = cameraMain.ScreenToWorldPoint(screenCoordinates);
         worldCoordinates.z = 0;
+
         touchedPosition = worldCoordinates;
     }
 
     void FixedUpdate()
     {
-        transform.position = touchedPosition;
-
         Collider2D collider = gameObject.GetComponent<Collider2D>();
         Bounds bounds = collider.bounds;
+
+        Vector3 targetPosition = new Vector3(touchedPosition.x, transform.position.y, transform.position.z);
+        //gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, targetPosition, Time.fixedDeltaTime);
+        gameObject.transform.position = targetPosition;
 
         leftEdge = -bounds.extents.x + gameObject.transform.position.x;
         rightEdge = bounds.extents.x + gameObject.transform.position.x;
