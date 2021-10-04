@@ -83,10 +83,12 @@ public class Paddle : MonoBehaviour
         if (leftEdge - leftBoundary < 0)
         {
             gameObject.transform.Translate(-(leftEdge - leftBoundary), 0, 0);
+            velocity = Vector3.zero;
         }
         else if (rightEdge - rightboundary > 0)
         {
             gameObject.transform.Translate(-(rightEdge - rightboundary), 0, 0);
+            velocity = Vector3.zero;
         }
     }
 

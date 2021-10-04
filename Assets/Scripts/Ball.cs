@@ -9,78 +9,86 @@ public class Ball : MonoBehaviour
 {
     public float radius;
 
-    public float speedLimit = 100f;
-    public float speed = 1.0f;
-    public float acceleration = 0.0f;
-    public Vector2 heading = new Vector2(0, -1).normalized;
+    //public Vector2 heading = new Vector2(0, -1).normalized;
     public Vector2 newHeading;
 
-    public bool drawDebug = false;
-    public bool drawGizmo = true;
+    public Vector3 velocity;
+    [SerializeField]
+    private float speed;
+    public float acceleration = 0.0f;
+    public float speedLimit = 100f;
+
+    [Space(20)]
+    [Range(1, 10)]
+    public float debugScale = 1;
+    public float debugPersistence = 2f;
+
+    public struct BallGizmoDisplayData
+    {
+        public Vector3? previousPosition;
+        public Vector3 startPoint;
+        public List<RaycastHit2D> raycastHits;
+    }
+
+    private BallGizmoDisplayData ballData;
 
     [ExecuteInEditMode]
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         radius = gameObject.GetComponent<CircleCollider2D>().radius;
-        heading = transform.up;
+        speed = velocity.magnitude;
+
+        ballData = new BallGizmoDisplayData();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         // Speed limit
-        speed = speed > speedLimit ? speedLimit : speed;
+        velocity = velocity.magnitude > speedLimit ? Vector3.ClampMagnitude(velocity, speedLimit) : velocity;
+        speed = velocity.magnitude;
 
-        float distanceToMove = speed * Time.fixedDeltaTime;
+        float distanceToMove = velocity.magnitude * Time.fixedDeltaTime;
 
-        RaycastHit2D raycastHit;
+        List<RaycastHit2D> raycastHits = new List<RaycastHit2D>();
+        RaycastHit2D currentHit;
         Vector3 startPoint = gameObject.transform.position;
 
-        int bounceLimit = 2000;
+        int bounceLimit = 3;
         for (int bounces = 0; bounces < bounceLimit; bounces++)
         {
             // If we have bounces remaining, do a circle cast from the start point towards our current heading for the distance we need to move
-            raycastHit = Physics2D.CircleCast(startPoint, radius * gameObject.transform.localScale.x, heading, distanceToMove, LayerMask.GetMask("Ball") ^ 0xFFFF);
+            currentHit = Physics2D.CircleCast(startPoint, radius * gameObject.transform.localScale.x, velocity, distanceToMove, LayerMask.GetMask("Ball") ^ 0xFFFF);
 
-            if (raycastHit.collider != null)
+            if (currentHit.collider != null)
             {
-                if (raycastHit.collider.gameObject.tag.Equals("Paddle") && raycastHit.normal.y < 0.01f && heading.y < 0.01f) 
-                {
-                    //break;
-                }
+                raycastHits.Add(currentHit);
 
                 // Bump our speed
-                //speed += acceleration * Time.fixedDeltaTime;
+                velocity += acceleration * Time.fixedDeltaTime * velocity.normalized;
 
-                // Reflect heading about the noirmal
-                heading = Vector3.Reflect(heading, raycastHit.normal);
-                Debug.Log(heading.magnitude);
+                // Reflect heading about the normal
+                velocity = Vector3.Reflect(velocity, currentHit.normal);
 
                 // Subtract the distance of the hit from the distance to move
-                distanceToMove -= raycastHit.distance;
+                distanceToMove -= currentHit.distance;
 
                 Vector3 v = Vector3.zero;
-                // Get the velocity of whatever hit us
-                if (raycastHit.collider.gameObject.CompareTag("Paddle"))
+
+                // Velocity influence of whatever we hit
+                if (currentHit.collider.gameObject.GetComponent<Paddle>()?.velocity != null)
                 {
-                    v = raycastHit.collider.gameObject.GetComponent<Paddle>().velocity;
+                    v = currentHit.collider.gameObject.GetComponent<Paddle>().velocity;
+                    velocity += v * 10f;
                 }
 
                 // Set the new start point to the centroid of the hit, plus a little bit to move it out of the normal
-                startPoint = raycastHit.centroid + raycastHit.normal * 0.002f;
+                startPoint = currentHit.centroid + currentHit.normal * 0.002f;
 
                 // Mark the target as hit
-                if (raycastHit.collider.gameObject.GetComponent<Mino>())
+                if (currentHit.collider.gameObject.GetComponent<Mino>())
                 {
-                    raycastHit.collider.gameObject.GetComponent<Mino>().Hit();
-                }
-
-                if (bounces > 4)
-                {
-                    //Debug.Log("POP!");
-                    //Destroy(gameObject);
-                    //return;
+                    currentHit.collider.gameObject.GetComponent<Mino>().Hit();
                 }
             }
             else
@@ -90,101 +98,61 @@ public class Ball : MonoBehaviour
             }
         }
 
-        Vector3 endPoint = startPoint + (Vector3)(heading * distanceToMove);
+
+        ballData.previousPosition = gameObject.transform.position;
+        ballData.startPoint = startPoint;
+        ballData.raycastHits = raycastHits;
+
+        Vector3 endPoint = startPoint + (velocity.normalized * distanceToMove);
 
         gameObject.transform.position = endPoint;
-        gameObject.transform.rotation.SetLookRotation(heading);
-
-        if (drawDebug)
-        {
-            DrawMovementProjection();
-        }
-    }
-
-    private void DrawMovementProjection()
-    {
-        Debug.DrawRay(new Vector2(-4, 4), heading, Color.yellow);
-
-        float distanceToMove = speed * Time.fixedDeltaTime;
-
-        // Mark object's center
-        MarkPoint(gameObject.transform.position);
-
-        Color[] bounceColors = { Color.white, Color.green, Color.yellow, Color.magenta };
-
-        RaycastHit2D raycastHit;
-        Vector3 startPoint = gameObject.transform.position;
-        //Vector2 nextHeading = heading;
-        Vector2 nextHeading = gameObject.transform.up;
-        float nextSpeed = speed;
-
-        int bounceLimit = 2000;
-        for (int bounces = 0; bounces < bounceLimit; bounces++)
-        {
-            // If we have bounces remaining, do a circle cast from the start point towards our current heading for the distance we need to move
-            raycastHit = Physics2D.CircleCast(startPoint, radius * gameObject.transform.localScale.x, nextHeading, distanceToMove, LayerMask.GetMask("Ball") ^ 0xFFFF);
-
-            if (raycastHit.collider != null)
-            {
-                if (raycastHit.collider.gameObject.tag.Equals("Paddle") && raycastHit.normal.y < 0.01f && heading.y < 0.01f)
-                {
-                    break;
-                }
-
-                // Bump our speed
-                nextSpeed += acceleration * Time.fixedDeltaTime;
-
-                // Draw the raycast until the hit
-                Debug.DrawRay(startPoint, nextHeading * raycastHit.distance, bounceColors[bounces % bounceColors.Length]);
-
-                // Draw original heading red
-                //Debug.DrawRay(startPoint, heading * gameObject.transform.localScale.x, Color.red);
-
-                // Mark the hit point and draw the normal
-                MarkPoint(raycastHit.point, "", Color.black, 0.05f);
-                Debug.DrawRay(raycastHit.point, raycastHit.normal / 4, Color.cyan);
-
-                // Reflect heading about the noirmal
-                nextHeading = Vector3.Reflect(nextHeading, raycastHit.normal);
-
-                // Subtract the distance of the hit from the distance to move
-                distanceToMove -= raycastHit.distance;
-
-                // Set the new start point to the centroid of the hit, plus a little bit to move it out of the normal
-                startPoint = raycastHit.centroid + raycastHit.normal * 0.002f;
-
-                // Mark the centroid
-                //MarkPoint(raycastHit.centroid, "", Color.magenta, 0.05f);
-            }
-            else
-            {
-                // If we don't hit anything, we are done and have our final position
-                break;
-            }
-        }
-
-        Vector3 endPoint = startPoint + (Vector3)(nextHeading * distanceToMove);
-
-        Debug.DrawRay(startPoint, nextHeading * distanceToMove, Color.blue);
-        MarkPoint(endPoint, "end position", Color.green, 0.01f);
-        Debug.DrawRay(new Vector2(-4, 2), nextHeading, Color.yellow);
+        gameObject.transform.rotation.SetLookRotation(velocity);
     }
 
     private void OnDrawGizmos()
     {
-        if (!drawGizmo)
-        {
-            return;
-        }
+        Vector2 velocityPosition = new Vector2(-5, 4);
+        Handles.Label(velocityPosition + Vector2.left * 2, "Velocity");
+        Handles.Label(velocityPosition + Vector2.left * 2 + Vector2.down, string.Format("Speed: {0}", velocity.magnitude));
+        Debug.DrawRay(velocityPosition, velocity.normalized, Color.yellow);
 
-        DrawMovementProjection();
+        if (ballData.previousPosition != null)
+        {
+            Debug.DrawLine((Vector3)ballData.previousPosition, transform.position, Color.yellow, debugPersistence);
+        }
+        
+        MarkPoint(transform.position);
+        if (ballData.raycastHits != null)
+        {
+            Vector2 hitsPosition = new Vector2(-6, 2);
+
+            if (ballData.raycastHits.Count > 0)
+            {
+                foreach (RaycastHit2D hit in ballData.raycastHits)
+                {
+                    MarkPoint(hit.point, persistent: true);
+                    Debug.DrawRay(hit.point, hit.normal/4, Color.cyan, debugPersistence);
+                }
+            }
+            Handles.Label(hitsPosition, string.Format("Bounces: {0}", ballData.raycastHits.Count));
+
+            Vector3 endPoint = Vector3.zero;
+            Vector3 currentPoint = ballData.startPoint;
+
+            for (int i = 0; i < ballData.raycastHits.Count; i++)
+            {
+                if (ballData.raycastHits[i].collider != null)
+                {
+                    Debug.DrawLine(currentPoint, ballData.raycastHits[i].centroid);
+                }
+            }
+        }
     }
 
-    private void MarkPoint(Vector2 point, string label = "", Color? color = null, float size = 0.1f)
+    private void MarkPoint(Vector2 point, Color? color = null, float size = 0.1f, bool persistent = false)
     {
-        Debug.DrawRay(point + new Vector2(-1, 1).normalized * size, new Vector2(1, -1).normalized * size * 2, color ?? Color.white);
-        Debug.DrawRay(point + new Vector2(1, 1).normalized * size, new Vector2(-1, -1).normalized * size * 2, color ?? Color.white);
-        //Handles.Label(point + new Vector2(1, 0) * 0.05f, label);
+        Debug.DrawRay(point + new Vector2(-1, 1).normalized * size, 2 * size * new Vector2(1, -1).normalized, color ?? Color.white, persistent ? debugPersistence : 0);
+        Debug.DrawRay(point + new Vector2(1, 1).normalized * size, 2 * size * new Vector2(-1, -1).normalized, color ?? Color.white, persistent ? debugPersistence : 0);
     }
 
     public void DebugFunction(InputAction.CallbackContext c)
