@@ -156,6 +156,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
+    Android: com.DefaultCompany.brickem
     Standalone: com.DefaultCompany.brick-em
   buildNumber:
     Standalone: 0

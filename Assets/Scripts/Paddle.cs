@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Paddle : MonoBehaviour
 {
@@ -22,6 +23,11 @@ public class Paddle : MonoBehaviour
 
     public float speedLimit = 1.0f;
 
+    public Vector3 velocity = Vector3.zero;
+
+    [SerializeField]
+    private bool activeTouch = false;
+
     private void Awake()
     {
         inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
@@ -30,14 +36,24 @@ public class Paddle : MonoBehaviour
 
     private void OnEnable()
     {
-        //inputManager.OnStartTouch += ProcessTouch;
+       inputManager.OnStartTouch += StartTouch;
         inputManager.OnActiveTouch += ProcessTouch;
     }
 
     private void OnDisable()
     {
-        //inputManager.OnEndTouch -= ProcessTouch;
+        inputManager.OnEndTouch -= EndTouch;
         inputManager.OnActiveTouch -= ProcessTouch;
+    }
+
+    public void StartTouch(Vector2 position, float time)
+    {
+        activeTouch = true;
+    }
+
+    public void EndTouch(Vector2 position, float time)
+    {
+        activeTouch = false;
     }
 
     public void ProcessTouch(Vector2 screenPosition, float time)
@@ -54,9 +70,12 @@ public class Paddle : MonoBehaviour
         Collider2D collider = gameObject.GetComponent<Collider2D>();
         Bounds bounds = collider.bounds;
 
-        Vector3 targetPosition = new Vector3(touchedPosition.x, transform.position.y, transform.position.z);
-        //gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, targetPosition, Time.fixedDeltaTime);
-        gameObject.transform.position = targetPosition;
+        if (activeTouch)
+        {
+            Vector3 targetPosition = new Vector3(touchedPosition.x, transform.position.y, transform.position.z);
+            velocity = Vector3.MoveTowards(gameObject.transform.position, targetPosition, speedLimit / 5f) - gameObject.transform.position;
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, targetPosition, speedLimit / 5f);
+        }
 
         leftEdge = -bounds.extents.x + gameObject.transform.position.x;
         rightEdge = bounds.extents.x + gameObject.transform.position.x;
@@ -79,5 +98,7 @@ public class Paddle : MonoBehaviour
             new Vector2(leftEdge, gameObject.transform.position.y),
             new Vector2(rightEdge, gameObject.transform.position.y),
             Color.red);
+
+        Debug.DrawRay(new Vector2(-5, 2), velocity, Color.yellow);
     }
 }

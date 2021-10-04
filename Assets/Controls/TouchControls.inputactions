@@ -31,15 +31,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "FullTouch",
-                    "type": "PassThrough",
-                    "id": "1cce523a-951d-499d-8d1a-913f5bc56e60",
-                    "expectedControlType": "Touch",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -73,17 +64,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "TouchPosition",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6ea13ac8-b25b-4342-8f0a-2174bb3c1c82",
-                    "path": "<Touchscreen>/primaryTouch",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "FullTouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

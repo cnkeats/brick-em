@@ -58,10 +58,12 @@ class LevelManagerEditor : Editor
             {
                 GameObject.DestroyImmediate(gameArea);
             }
-            gameArea = GameObject.Instantiate(Resources.Load("GameAreaTemplate")) as GameObject;
-            gameArea.name = gameArea.name.Replace("Template(Clone)", "");
+            //gameArea = GameObject.Instantiate(Resources.Load("GameAreaTemplate")) as GameObject;
+            gameArea = PrefabUtility.InstantiatePrefab(Resources.Load("GameAreaTemplate")) as GameObject;
+            gameArea.name = gameArea.name.Replace("Template", "");
 
-            GameObject prefabLevel = (GameObject)Instantiate(Resources.Load(string.Format("Levels/{0}", prefabname)));
+            //GameObject prefabLevel = (GameObject)Instantiate(Resources.Load(string.Format("Levels/{0}", prefabname)));
+            GameObject prefabLevel = (GameObject)PrefabUtility.InstantiatePrefab(Resources.Load(string.Format("Levels/{0}", prefabname)));
 
             if (prefabLevel != null)
             {

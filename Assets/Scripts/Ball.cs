@@ -51,13 +51,21 @@ public class Ball : MonoBehaviour
                 }
 
                 // Bump our speed
-                speed += acceleration * Time.fixedDeltaTime;
+                //speed += acceleration * Time.fixedDeltaTime;
 
                 // Reflect heading about the noirmal
-                heading = heading - 2 * (Vector2.Dot(heading, raycastHit.normal) * raycastHit.normal);
+                heading = Vector3.Reflect(heading, raycastHit.normal);
+                Debug.Log(heading.magnitude);
 
                 // Subtract the distance of the hit from the distance to move
                 distanceToMove -= raycastHit.distance;
+
+                Vector3 v = Vector3.zero;
+                // Get the velocity of whatever hit us
+                if (raycastHit.collider.gameObject.CompareTag("Paddle"))
+                {
+                    v = raycastHit.collider.gameObject.GetComponent<Paddle>().velocity;
+                }
 
                 // Set the new start point to the centroid of the hit, plus a little bit to move it out of the normal
                 startPoint = raycastHit.centroid + raycastHit.normal * 0.002f;
@@ -66,6 +74,13 @@ public class Ball : MonoBehaviour
                 if (raycastHit.collider.gameObject.GetComponent<Mino>())
                 {
                     raycastHit.collider.gameObject.GetComponent<Mino>().Hit();
+                }
+
+                if (bounces > 4)
+                {
+                    //Debug.Log("POP!");
+                    //Destroy(gameObject);
+                    //return;
                 }
             }
             else
@@ -130,7 +145,7 @@ public class Ball : MonoBehaviour
                 Debug.DrawRay(raycastHit.point, raycastHit.normal / 4, Color.cyan);
 
                 // Reflect heading about the noirmal
-                nextHeading = nextHeading - 2 * (Vector2.Dot(nextHeading, raycastHit.normal) * raycastHit.normal);
+                nextHeading = Vector3.Reflect(nextHeading, raycastHit.normal);
 
                 // Subtract the distance of the hit from the distance to move
                 distanceToMove -= raycastHit.distance;
