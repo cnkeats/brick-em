@@ -7,14 +7,15 @@ using UnityEngine.InputSystem;
 
 public class Ball : MonoBehaviour
 {
-    public float radius;
+    //public float radius;
 
     //public Vector2 heading = new Vector2(0, -1).normalized;
-    public Vector2 newHeading;
+    //public Vector2 newHeading;
 
-    public Vector3 velocity;
+    //Rigidbody2D rigidbody;
+
     [SerializeField]
-    private float speed;
+    public float speed;
     public float acceleration = 0.0f;
     public float speedLimit = 100f;
 
@@ -22,14 +23,6 @@ public class Ball : MonoBehaviour
     [Range(1, 10)]
     public float debugScale = 1;
     public float debugPersistence = 2f;
-
-
-    public struct BallGizmoDisplayData
-    {
-        public Vector3? previousPosition;
-        public Vector3 startPoint;
-        public List<RaycastHit2D> raycastHits;
-    }
     public int maxBounces = 0;
 
     private BallGizmoDisplayData ballData;
@@ -37,15 +30,39 @@ public class Ball : MonoBehaviour
     [ExecuteInEditMode]
     void Awake()
     {
-        radius = gameObject.GetComponent<CircleCollider2D>().radius;
-        speed = velocity.magnitude;
+        //radius = gameObject.GetComponent<CircleCollider2D>().radius;
+        //speed = velocity.magnitude;
 
         ballData = new BallGizmoDisplayData();
+        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector3(2.1f, 5f);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        //Debug.Log("HIT");
+
+
+        //if (collision.gameObject
+        //{
+        if (collision.gameObject.CompareTag("Mino"))
+        {
+            collision.gameObject.GetComponent<Mino>().Hit();
+        }
+        //}
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        Rigidbody2D rigidbody = gameObject.GetComponent<Rigidbody2D>();
+        rigidbody.velocity = Mathf.Clamp(rigidbody.velocity.magnitude, -speedLimit, speedLimit) * rigidbody.velocity.normalized;
+        speed = rigidbody.velocity.magnitude;
+
+        //rigidbody.velocity = new Vector3(.2f, 1f) * Time.fixedDeltaTime;
+        //rigidbody.MovePosition(transform.position + (Vector3)rigidbody.velocity * Time.fixedDeltaTime);
+        
+
+        /*
         // Speed limit
         velocity = velocity.magnitude > speedLimit ? Vector3.ClampMagnitude(velocity, speedLimit) : velocity;
         speed = velocity.magnitude;
@@ -90,11 +107,6 @@ public class Ball : MonoBehaviour
                 Vector3 v = Vector3.zero;
 
                 // Velocity influence of whatever we hit
-                /*if (currentHit.collider.gameObject.GetComponent<Paddle>()?.velocity != null)
-                {
-                    v = currentHit.collider.gameObject.GetComponent<Paddle>().velocity;
-                    velocity += v * 10f;
-                }*/
 
                 // Set the new start point to the centroid of the hit, plus a little bit to move it out of the normal
                 startPoint = currentHit.centroid + currentHit.normal * 0.002f;
@@ -123,14 +135,15 @@ public class Ball : MonoBehaviour
 
         gameObject.transform.position = endPoint;
         gameObject.transform.rotation.SetLookRotation(velocity);
+        */
     }
 
     private void OnDrawGizmos()
     {
         Vector2 velocityPosition = new Vector2(-5, 4);
         Handles.Label(velocityPosition + Vector2.left * 2, "Velocity");
-        Handles.Label(velocityPosition + Vector2.left * 2 + Vector2.down, string.Format("Speed: {0}", velocity.magnitude));
-        Debug.DrawRay(velocityPosition, velocity.normalized, Color.yellow);
+        //Handles.Label(velocityPosition + Vector2.left * 2 + Vector2.down, string.Format("Speed: {0}", velocity.magnitude));
+        //Debug.DrawRay(velocityPosition, velocity.normalized, Color.yellow);
 
         if (ballData.previousPosition != null)
         {
@@ -170,5 +183,12 @@ public class Ball : MonoBehaviour
     {
         Debug.DrawRay(point + new Vector2(-1, 1).normalized * size, 2 * size * new Vector2(1, -1).normalized, color ?? Color.white, persistent ? debugPersistence : 0);
         Debug.DrawRay(point + new Vector2(1, 1).normalized * size, 2 * size * new Vector2(-1, -1).normalized, color ?? Color.white, persistent ? debugPersistence : 0);
+    }
+
+    public struct BallGizmoDisplayData
+    {
+        public Vector3? previousPosition;
+        public Vector3 startPoint;
+        public List<RaycastHit2D> raycastHits;
     }
 }

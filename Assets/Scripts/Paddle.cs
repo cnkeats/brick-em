@@ -76,7 +76,7 @@ public class Paddle : MonoBehaviour
             //velocity = Vector3.MoveTowards(gameObject.transform.position, targetPosition, speedLimit / 5f) - gameObject.transform.position;
             //gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, targetPosition, speedLimit / 5f);
 
-            RaycastHit2D[] raycastHits;
+            //RaycastHit2D[] raycastHits;
             //gameObject.GetComponent<Rigidbody2D>().Cast(velocity, raycastHit, 
         }
 
