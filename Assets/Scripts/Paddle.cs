@@ -23,7 +23,7 @@ public class Paddle : MonoBehaviour
 
     public float speedLimit = 1.0f;
 
-    public Vector3 velocity = Vector3.zero;
+    //public Vector3 velocity = Vector3.zero;
 
     [SerializeField]
     private bool activeTouch = false;
@@ -73,8 +73,11 @@ public class Paddle : MonoBehaviour
         if (activeTouch)
         {
             Vector3 targetPosition = new Vector3(touchedPosition.x, transform.position.y, transform.position.z);
-            velocity = Vector3.MoveTowards(gameObject.transform.position, targetPosition, speedLimit / 5f) - gameObject.transform.position;
-            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, targetPosition, speedLimit / 5f);
+            //velocity = Vector3.MoveTowards(gameObject.transform.position, targetPosition, speedLimit / 5f) - gameObject.transform.position;
+            //gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, targetPosition, speedLimit / 5f);
+
+            RaycastHit2D[] raycastHits;
+            //gameObject.GetComponent<Rigidbody2D>().Cast(velocity, raycastHit, 
         }
 
         leftEdge = -bounds.extents.x + gameObject.transform.position.x;
@@ -83,12 +86,12 @@ public class Paddle : MonoBehaviour
         if (leftEdge - leftBoundary < 0)
         {
             gameObject.transform.Translate(-(leftEdge - leftBoundary), 0, 0);
-            velocity = Vector3.zero;
+            //velocity = Vector3.zero;
         }
         else if (rightEdge - rightboundary > 0)
         {
             gameObject.transform.Translate(-(rightEdge - rightboundary), 0, 0);
-            velocity = Vector3.zero;
+            //velocity = Vector3.zero;
         }
     }
 
@@ -101,6 +104,6 @@ public class Paddle : MonoBehaviour
             new Vector2(rightEdge, gameObject.transform.position.y),
             Color.red);
 
-        Debug.DrawRay(new Vector2(-5, 2), velocity, Color.yellow);
+        //Debug.DrawRay(new Vector2(-5, 2), velocity, Color.yellow);
     }
 }

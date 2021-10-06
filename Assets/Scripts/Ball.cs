@@ -23,12 +23,14 @@ public class Ball : MonoBehaviour
     public float debugScale = 1;
     public float debugPersistence = 2f;
 
+
     public struct BallGizmoDisplayData
     {
         public Vector3? previousPosition;
         public Vector3 startPoint;
         public List<RaycastHit2D> raycastHits;
     }
+    public int maxBounces = 0;
 
     private BallGizmoDisplayData ballData;
 
@@ -54,14 +56,26 @@ public class Ball : MonoBehaviour
         RaycastHit2D currentHit;
         Vector3 startPoint = gameObject.transform.position;
 
-        int bounceLimit = 3;
+        List<Collider2D> hitColliders = new List<Collider2D>();
+
+        MarkPoint(transform.position, Color.black, 0.005f, true);
+
+        int bounceLimit = 10;
         for (int bounces = 0; bounces < bounceLimit; bounces++)
         {
             // If we have bounces remaining, do a circle cast from the start point towards our current heading for the distance we need to move
             currentHit = Physics2D.CircleCast(startPoint, radius * gameObject.transform.localScale.x, velocity, distanceToMove, LayerMask.GetMask("Ball") ^ 0xFFFF);
-
             if (currentHit.collider != null)
             {
+                // If we are intersecting the collider, we need to eject ourselves
+                if (currentHit.distance < Mathf.Epsilon)
+                {
+                    Debug.Log("TOO CLOSE");
+                    Debug.DrawRay(currentHit.point, currentHit.normal / 8, Color.cyan);
+                    Debug.Break();
+                }
+
+                hitColliders.Add(currentHit.collider);
                 raycastHits.Add(currentHit);
 
                 // Bump our speed
@@ -76,11 +90,11 @@ public class Ball : MonoBehaviour
                 Vector3 v = Vector3.zero;
 
                 // Velocity influence of whatever we hit
-                if (currentHit.collider.gameObject.GetComponent<Paddle>()?.velocity != null)
+                /*if (currentHit.collider.gameObject.GetComponent<Paddle>()?.velocity != null)
                 {
                     v = currentHit.collider.gameObject.GetComponent<Paddle>().velocity;
                     velocity += v * 10f;
-                }
+                }*/
 
                 // Set the new start point to the centroid of the hit, plus a little bit to move it out of the normal
                 startPoint = currentHit.centroid + currentHit.normal * 0.002f;
@@ -97,6 +111,8 @@ public class Ball : MonoBehaviour
                 break;
             }
         }
+
+        // If we hit the bounce limit, something has gone wrong. We're going to pop instead of risk being launched out of bounds
 
 
         ballData.previousPosition = gameObject.transform.position;
@@ -118,7 +134,7 @@ public class Ball : MonoBehaviour
 
         if (ballData.previousPosition != null)
         {
-            Debug.DrawLine((Vector3)ballData.previousPosition, transform.position, Color.yellow, debugPersistence);
+            //Debug.DrawLine((Vector3)ballData.previousPosition, transform.position, Color.yellow, debugPersistence);
         }
         
         MarkPoint(transform.position);
@@ -135,6 +151,7 @@ public class Ball : MonoBehaviour
                 }
             }
             Handles.Label(hitsPosition, string.Format("Bounces: {0}", ballData.raycastHits.Count));
+            maxBounces = ballData.raycastHits.Count > maxBounces ? ballData.raycastHits.Count : maxBounces;
 
             Vector3 endPoint = Vector3.zero;
             Vector3 currentPoint = ballData.startPoint;
@@ -153,12 +170,5 @@ public class Ball : MonoBehaviour
     {
         Debug.DrawRay(point + new Vector2(-1, 1).normalized * size, 2 * size * new Vector2(1, -1).normalized, color ?? Color.white, persistent ? debugPersistence : 0);
         Debug.DrawRay(point + new Vector2(1, 1).normalized * size, 2 * size * new Vector2(-1, -1).normalized, color ?? Color.white, persistent ? debugPersistence : 0);
-    }
-
-    public void DebugFunction(InputAction.CallbackContext c)
-    {
-        Debug.Log("DEBUG TEST!");
-
-        //gameObject.transform.localScale = new Vector3(val / 1000f, val / 1000f);
     }
 }
