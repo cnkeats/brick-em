@@ -97,12 +97,12 @@ public class Paddle : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Debug.DrawLine(new Vector2(leftBoundary, gameObject.transform.position.y+1), new Vector2(rightboundary, gameObject.transform.position.y+1),Color.magenta);
+        //Debug.DrawLine(new Vector2(leftBoundary, gameObject.transform.position.y+1), new Vector2(rightboundary, gameObject.transform.position.y+1),Color.magenta);
 
-        Debug.DrawLine(
-            new Vector2(leftEdge, gameObject.transform.position.y),
-            new Vector2(rightEdge, gameObject.transform.position.y),
-            Color.red);
+        //Debug.DrawLine(
+            //new Vector2(leftEdge, gameObject.transform.position.y),
+            //new Vector2(rightEdge, gameObject.transform.position.y),
+            //Color.red);
 
         //Debug.DrawRay(new Vector2(-5, 2), velocity, Color.yellow);
     }
