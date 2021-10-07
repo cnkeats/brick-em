@@ -36,14 +36,14 @@ public class Paddle : MonoBehaviour
 
     private void OnEnable()
     {
-       inputManager.OnStartTouch += StartTouch;
-        inputManager.OnActiveTouch += ProcessTouch;
+       //inputManager.OnStartTouch += StartTouch;
+       //inputManager.OnActiveTouch += ProcessTouch;
     }
 
     private void OnDisable()
     {
-        inputManager.OnEndTouch -= EndTouch;
-        inputManager.OnActiveTouch -= ProcessTouch;
+        //inputManager.OnEndTouch -= EndTouch;
+        //inputManager.OnActiveTouch -= ProcessTouch;
     }
 
     public void StartTouch(Vector2 position, float time)
