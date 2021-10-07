@@ -34,7 +34,7 @@ public class Ball : MonoBehaviour
         //speed = velocity.magnitude;
 
         ballData = new BallGizmoDisplayData();
-        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector3(2.1f, 5f);
+        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector3(0f, 5f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

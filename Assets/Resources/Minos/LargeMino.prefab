@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  maxHits: 1
+  maxHits: 3
   currentHits: 0
   width: 0.54
   height: 0.54
@@ -125,5 +125,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.24, y: 0.24}
-  m_EdgeRadius: 0.03
+  m_Size: {x: 0.26666665, y: 0.26666665}
+  m_EdgeRadius: 0
