@@ -6,15 +6,6 @@
             "id": "b285a7dc-14f9-4406-be5d-c81c2de7c82e",
             "actions": [
                 {
-                    "name": "TouchInput",
-                    "type": "PassThrough",
-                    "id": "26764865-92b4-43aa-8e66-ffe5fc60446f",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "TouchPress",
                     "type": "Button",
                     "id": "a647bfd7-ddb5-46aa-95ca-e200c62131d9",
@@ -36,19 +27,8 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "5f38671f-47e6-4bb1-809b-3c30144ffb1b",
-                    "path": "<Touchscreen>/primaryTouch",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "TouchInput",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "f1abede3-54f4-4941-b4ef-e134c3f08b14",
-                    "path": "<Touchscreen>/primaryTouch/press",
+                    "path": "<Touchscreen>/press",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "",

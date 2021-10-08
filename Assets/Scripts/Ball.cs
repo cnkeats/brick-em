@@ -25,26 +25,38 @@ public class Ball : MonoBehaviour
     public float debugPersistence = 2f;
     public int maxBounces = 0;
 
+    public BallState ballState = BallState.LAUNCHING;
+
     private BallGizmoDisplayData ballData;
+
+    public enum BallState
+    {
+        INACTIVE = 0,
+        LAUNCHING = 1,
+        ACTIVE = 2
+    }
 
     [ExecuteInEditMode]
     void Awake()
     {
-        //radius = gameObject.GetComponent<CircleCollider2D>().radius;
-        //speed = velocity.magnitude;
-
         ballData = new BallGizmoDisplayData();
+
+        if (ballState == BallState.ACTIVE)
+        {
+            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector3(1.3f, 5f);
+            transform.up = gameObject.GetComponent<Rigidbody2D>().velocity.normalized;
+        }
+    }
+
+    public void Launch()
+    {
+        ballState = BallState.ACTIVE;
         gameObject.GetComponent<Rigidbody2D>().velocity = new Vector3(1.3f, 5f);
         transform.up = gameObject.GetComponent<Rigidbody2D>().velocity.normalized;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //Debug.Log("HIT");
-
-
-        //if (collision.gameObject
-        //{
         if (collision.gameObject.CompareTag("Mino"))
         {
             collision.gameObject.GetComponent<Mino>().Hit();
@@ -54,22 +66,22 @@ public class Ball : MonoBehaviour
         {
             collision.gameObject.GetComponent<Shield>().Hit();
         }
-        //}
     }
 
     private void Update()
     {
         transform.up = gameObject.GetComponent<Rigidbody2D>().velocity.normalized;
-
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        Rigidbody2D rigidbody = gameObject.GetComponent<Rigidbody2D>();
-        rigidbody.velocity = Mathf.Clamp(rigidbody.velocity.magnitude, -speedLimit, speedLimit) * rigidbody.velocity.normalized;
-        speed = rigidbody.velocity.magnitude;
-
+        if (ballState == BallState.ACTIVE)
+        {
+            Rigidbody2D rigidbody = gameObject.GetComponent<Rigidbody2D>();
+            rigidbody.velocity = Mathf.Clamp(rigidbody.velocity.magnitude, -speedLimit, speedLimit) * rigidbody.velocity.normalized;
+            speed = rigidbody.velocity.magnitude;
+        }
     }
 
     private void OnDrawGizmos()

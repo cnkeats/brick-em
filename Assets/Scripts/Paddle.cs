@@ -25,44 +25,10 @@ public class Paddle : MonoBehaviour
 
     //public Vector3 velocity = Vector3.zero;
 
-    [SerializeField]
-    private bool activeTouch = false;
-
     private void Awake()
     {
         inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
         cameraMain = Camera.main;
-    }
-
-    private void OnEnable()
-    {
-       //inputManager.OnStartTouch += StartTouch;
-       //inputManager.OnActiveTouch += ProcessTouch;
-    }
-
-    private void OnDisable()
-    {
-        //inputManager.OnEndTouch -= EndTouch;
-        //inputManager.OnActiveTouch -= ProcessTouch;
-    }
-
-    public void StartTouch(Vector2 position, float time)
-    {
-        activeTouch = true;
-    }
-
-    public void EndTouch(Vector2 position, float time)
-    {
-        activeTouch = false;
-    }
-
-    public void ProcessTouch(Vector2 screenPosition, float time)
-    {
-        Vector3 screenCoordinates = new Vector3(screenPosition.x, screenPosition.y, cameraMain.nearClipPlane);
-        Vector3 worldCoordinates = cameraMain.ScreenToWorldPoint(screenCoordinates);
-        worldCoordinates.z = 0;
-
-        touchedPosition = worldCoordinates;
     }
 
     void FixedUpdate()
@@ -70,15 +36,15 @@ public class Paddle : MonoBehaviour
         Collider2D collider = gameObject.GetComponent<Collider2D>();
         Bounds bounds = collider.bounds;
 
-        if (activeTouch)
-        {
-            Vector3 targetPosition = new Vector3(touchedPosition.x, transform.position.y, transform.position.z);
-            //velocity = Vector3.MoveTowards(gameObject.transform.position, targetPosition, speedLimit / 5f) - gameObject.transform.position;
-            //gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, targetPosition, speedLimit / 5f);
-
-            //RaycastHit2D[] raycastHits;
-            //gameObject.GetComponent<Rigidbody2D>().Cast(velocity, raycastHit, 
-        }
+        //if (activeTouch)
+        //{
+        //    Vector3 targetPosition = new Vector3(touchedPosition.x, transform.position.y, transform.position.z);
+        //    //velocity = Vector3.MoveTowards(gameObject.transform.position, targetPosition, speedLimit / 5f) - gameObject.transform.position;
+        //    //gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, targetPosition, speedLimit / 5f);
+        //
+        //    //RaycastHit2D[] raycastHits;
+        //    //gameObject.GetComponent<Rigidbody2D>().Cast(velocity, raycastHit, 
+        //}
 
         leftEdge = -bounds.extents.x + gameObject.transform.position.x;
         rightEdge = bounds.extents.x + gameObject.transform.position.x;
