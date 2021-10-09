@@ -17,26 +17,10 @@ public class BallLauncher : MonoBehaviour
 
     public GameObject ball;
 
-    public int spawnCount = 6;
-
-    public List<LauncherSpawnPoint> spawnPoints = new List<LauncherSpawnPoint>();
-
     void Awake()
     {
         inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
         width = gameObject.GetComponent<BoxCollider2D>().bounds.size.x;
-
-        foreach (LauncherSpawnPoint spawnPoint in gameObject.GetComponentsInChildren<LauncherSpawnPoint>())
-        {
-            spawnPoints.Add(spawnPoint);
-        }
-
-        for (int i = spawnPoints.Count; i < spawnCount; i++)
-        {
-            GameObject gameObject = Instantiate(Resources.Load("Prefabs/LauncherSpawnPoint")) as GameObject;
-            gameObject.name = gameObject.name.Replace("(Clone)", "");
-            gameObject.transform.parent = transform;
-        }
     }
 
     private void OnEnable()
@@ -74,24 +58,7 @@ public class BallLauncher : MonoBehaviour
 
         if (ball != null && ball.GetComponent<Ball>().ballState == Ball.BallState.LAUNCHING)
         {
-            float leftEdge = gameObject.transform.position.x - width / 2;
-            float rightEdge = gameObject.transform.position.x + width / 2;
-
-            float spawnWidth = width / (spawnCount + 1);
-
-            float lerp = Mathf.InverseLerp(leftEdge, rightEdge, position.x);
-            float temp = Mathf.Round(lerp * (spawnCount - 1)) + 1;
-
-            for (int i = 1; i <= spawnCount; i++)
-            {
-                //Utils.MarkPoint(new Vector2(leftEdge + (i * spawnWidth), ball.transform.parent.position.y));
-                //Debug.DrawLine(Vector3.zero, new Vector3(leftEdge + (i * spawnWidth), gameObject.transform.position.y, 0), Color.white, 1f);
-            }
-
-            //Debug.DrawLine(Vector3.zero, new Vector3(leftEdge + (temp * spawnWidth), gameObject.transform.position.y, 0), Color.red, 0.01f);
-            //Debug.Log(Utils.RoundToIncrement(position.x, spawnWidth));
-
-            ball.transform.position = new Vector3(leftEdge + (temp * spawnWidth), gameObject.transform.position.y);
+            ball.transform.position = transform.position;
         }
     }
 
