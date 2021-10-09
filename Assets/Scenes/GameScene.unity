@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 241386103}
   - component: {fileID: 241386104}
   - component: {fileID: 241386105}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: BallLauncher
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,8 +199,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ball: {fileID: 0}
-  spawnCount: 6
-  spawnPoints: []
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

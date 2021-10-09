@@ -17,7 +17,7 @@ public class Ball : MonoBehaviour
     [SerializeField]
     public float speed;
     public float acceleration = 0.0f;
-    public float speedLimit = 100f;
+    public float speedLimit = 10f;
 
     [Space(20)]
     [Range(1, 10)]
