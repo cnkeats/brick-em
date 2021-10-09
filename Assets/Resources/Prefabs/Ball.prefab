@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8580257624287669803}
   - component: {fileID: 8580257624287669782}
-  - component: {fileID: 8580257624287669781}
   - component: {fileID: 8580257624287669780}
+  - component: {fileID: 8580257624287669781}
   - component: {fileID: -3055355813361581622}
   - component: {fileID: 5800963322567648852}
   m_Layer: 10
@@ -86,6 +86,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8580257624287669780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8580257624287669802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5ccb2861f072fb4e99cfb18efc99ed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  launchSpeed: 5
+  speed: 0
+  acceleration: 1.15
+  speedLimit: 50
+  debugScale: 1
+  debugPersistence: 2
+  maxBounces: 0
+  ballState: 1
 --- !u!58 &8580257624287669781
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -102,25 +122,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.64
---- !u!114 &8580257624287669780
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8580257624287669802}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5ccb2861f072fb4e99cfb18efc99ed3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0
-  acceleration: 1.15
-  speedLimit: 50
-  debugScale: 1
-  debugPersistence: 2
-  maxBounces: 0
-  ballState: 1
 --- !u!50 &-3055355813361581622
 Rigidbody2D:
   serializedVersion: 4
@@ -200,23 +201,14 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.32380953
       - serializedVersion: 3
-        time: 0.19556868
-        value: 0.022583008
-        inSlope: -0.5709833
-        outSlope: -0.5709833
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0.3892545
-      - serializedVersion: 3
-        time: 0.5234606
+        time: 0.24068886
         value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
+        inSlope: -0.12026572
+        outSlope: Infinity
+        tangentMode: 97
         weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+        inWeight: 0.15830372
+        outWeight: 0.3892545
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4

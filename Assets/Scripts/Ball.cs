@@ -14,6 +14,8 @@ public class Ball : MonoBehaviour
 
     //Rigidbody2D rigidbody;
 
+    public float launchSpeed = 5.0f;
+
     [SerializeField]
     public float speed;
     public float acceleration = 0.0f;
@@ -43,15 +45,15 @@ public class Ball : MonoBehaviour
 
         if (ballState == BallState.ACTIVE)
         {
-            gameObject.GetComponent<Rigidbody2D>().velocity = new Vector3(1.3f, 5f);
+            gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.up * launchSpeed;
             transform.up = gameObject.GetComponent<Rigidbody2D>().velocity.normalized;
         }
     }
 
-    public void Launch()
+    public void Launch(Vector2 aim)
     {
         ballState = BallState.ACTIVE;
-        gameObject.GetComponent<Rigidbody2D>().velocity = new Vector3(1.3f, 5f);
+        gameObject.GetComponent<Rigidbody2D>().velocity = aim * launchSpeed;
         transform.up = gameObject.GetComponent<Rigidbody2D>().velocity.normalized;
     }
 
@@ -108,6 +110,7 @@ public class Ball : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         Vector2 velocityPosition = new Vector2(-4, 4);
@@ -126,6 +129,7 @@ public class Ball : MonoBehaviour
 
         DrawPrediction();
     }
+#endif
 
     private void MarkPoint(Vector2 point, Color? color = null, float size = 0.1f, bool persistent = false)
     {
