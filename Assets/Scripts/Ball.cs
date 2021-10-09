@@ -84,6 +84,30 @@ public class Ball : MonoBehaviour
         }
     }
 
+    private void DrawPrediction()
+    {
+        Vector2 velocity = gameObject.GetComponent<Rigidbody2D>().velocity;
+        float radius = gameObject.GetComponent<CircleCollider2D>().radius * transform.localScale.x;
+
+        if (velocity.magnitude != 0)
+        {
+            Vector2 startingPoint = transform.position;
+            RaycastHit2D raycastHit =  Physics2D.CircleCast(startingPoint, radius, velocity, 10f, LayerMask.GetMask("Ball") ^ 0xFFFF);
+
+            MarkPoint(startingPoint, Color.magenta);
+
+            if (raycastHit.collider != null)
+            {
+                MarkPoint(raycastHit.centroid, Color.red);
+                Debug.DrawRay(raycastHit.point, raycastHit.normal / 4, Color.cyan);
+            }
+            else
+            {
+                Debug.DrawRay(startingPoint, velocity, Color.blue);
+            }
+        }
+    }
+
     private void OnDrawGizmos()
     {
         Vector2 velocityPosition = new Vector2(-4, 4);
@@ -97,36 +121,10 @@ public class Ball : MonoBehaviour
         {
             Debug.DrawLine((Vector3)ballData.previousPosition, transform.position, Color.yellow, debugPersistence);
         }
-        
-        MarkPoint(transform.position);
-        if (ballData.raycastHits != null)
-        {
-            Vector2 hitsPosition = new Vector2(-6, 2);
-
-            if (ballData.raycastHits.Count > 0)
-            {
-                foreach (RaycastHit2D hit in ballData.raycastHits)
-                {
-                    MarkPoint(hit.point, persistent: true);
-                    Debug.DrawRay(hit.point, hit.normal/4, Color.cyan, debugPersistence);
-                }
-            }
-            Handles.Label(hitsPosition, string.Format("Bounces: {0}", ballData.raycastHits.Count));
-            maxBounces = ballData.raycastHits.Count > maxBounces ? ballData.raycastHits.Count : maxBounces;
-
-            Vector3 endPoint = Vector3.zero;
-            Vector3 currentPoint = ballData.startPoint;
-
-            for (int i = 0; i < ballData.raycastHits.Count; i++)
-            {
-                if (ballData.raycastHits[i].collider != null)
-                {
-                    Debug.DrawLine(currentPoint, ballData.raycastHits[i].centroid);
-                }
-            }
-        }
 
         ballData.previousPosition = gameObject.transform.position;
+
+        DrawPrediction();
     }
 
     private void MarkPoint(Vector2 point, Color? color = null, float size = 0.1f, bool persistent = false)
