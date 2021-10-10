@@ -17,7 +17,7 @@ public class Level_0_Generator_OLD : LevelGenerator
 
         Transform parent = GameObject.Find("Hitables").transform;
 
-        float minoWidth = (Resources.Load("Minos/LargeMino") as GameObject).GetComponent<Mino>().width;
+        /*float minoWidth = (Resources.Load("Minos/LargeMino") as GameObject).GetComponent<Mino>().width;
         float minoHeight = (Resources.Load("Minos/LargeMino") as GameObject).GetComponent<Mino>().height;
 
         float gameAreaTop = bounds.center.y + bounds.extents.y;
@@ -56,7 +56,7 @@ public class Level_0_Generator_OLD : LevelGenerator
 
                 minos.Add(gameObject);
             }
-        }
+        }*/
 
         return minos;
     }

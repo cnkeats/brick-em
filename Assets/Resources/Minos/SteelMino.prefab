@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6871758307956024696}
   - component: {fileID: 8486026218703142913}
   m_Layer: 11
-  m_Name: Mino
+  m_Name: SteelMino
   m_TagString: Mino
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 197bd9b80a0f86b428b7e21d7ecd2c5f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6aa7bd81785328a4aa550ce0b5486bc0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  maxHits: 1
+  maxHits: -1
   currentHits: 0
 --- !u!61 &8486026218703142913
 BoxCollider2D:
