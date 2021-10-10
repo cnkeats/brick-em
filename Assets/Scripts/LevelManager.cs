@@ -17,4 +17,31 @@ public class LevelManager : MonoBehaviour
         levelGenerator.Generate();
         //this.levelGenerator.GetMinos();
     }
+
+    public void ReloadLevel()
+    {
+        string name = "";
+
+        foreach (Transform transform in GameObject.Find("GameArea").transform)
+        {
+            if (transform.gameObject.name.StartsWith("Level_"))
+            {
+                name = transform.gameObject.name;
+            }
+            Destroy(transform.gameObject);
+        }
+
+        LoadLevel(name);
+    }
+
+    public void LoadLevel(string levelName)
+    {
+        GameObject staticContent = PrefabUtility.InstantiatePrefab(Resources.Load("Prefabs/StaticContent")) as GameObject;
+        GameObject dynamicContent = PrefabUtility.InstantiatePrefab(Resources.Load("Prefabs/DynamicContent")) as GameObject;
+        GameObject level = PrefabUtility.InstantiatePrefab(Resources.Load(string.Format("Levels/{0}", levelName))) as GameObject;
+
+        staticContent.transform.parent = GameObject.Find("GameArea").transform;
+        dynamicContent.transform.parent = GameObject.Find("GameArea").transform;
+        level.transform.parent = GameObject.Find("GameArea").transform;
+    }
 }

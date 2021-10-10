@@ -6,19 +6,19 @@
             "id": "b285a7dc-14f9-4406-be5d-c81c2de7c82e",
             "actions": [
                 {
-                    "name": "TouchPress",
-                    "type": "Button",
-                    "id": "a647bfd7-ddb5-46aa-95ca-e200c62131d9",
-                    "expectedControlType": "Button",
+                    "name": "TouchPosition",
+                    "type": "PassThrough",
+                    "id": "a9f1bee8-a035-4118-bfd2-9afb0fd19319",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "TouchPosition",
-                    "type": "PassThrough",
-                    "id": "a9f1bee8-a035-4118-bfd2-9afb0fd19319",
-                    "expectedControlType": "Vector2",
+                    "name": "TouchPress",
+                    "type": "Button",
+                    "id": "6cc2796c-c3da-4dac-bd75-e59a0b2d32a9",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -27,23 +27,23 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "f1abede3-54f4-4941-b4ef-e134c3f08b14",
-                    "path": "<Touchscreen>/press",
-                    "interactions": "Press",
-                    "processors": "",
-                    "groups": "",
-                    "action": "TouchPress",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "34f10050-612c-43ca-bc74-94d61e22f39d",
                     "path": "<Touchscreen>/primaryTouch/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "TouchPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ccbb1cf7-0adc-4fd1-b049-00b26364971f",
+                    "path": "<Touchscreen>/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TouchPress",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

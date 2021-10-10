@@ -19,7 +19,8 @@ public class Mino : MonoBehaviour
         if (currentHits >= maxHits)
         {
             state = MinoState.DESTROYED;
-            GameObject.Destroy(gameObject);
+            //GameObject.Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }

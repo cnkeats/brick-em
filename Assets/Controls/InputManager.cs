@@ -13,6 +13,9 @@ public class InputManager : MonoBehaviour {
     public delegate void EndTouchEvent(Vector2 position, float time);
     public event EndTouchEvent OnEndTouch;
 
+    public delegate void PressEvent(Vector2 position);
+    public event PressEvent OnPress;
+
     private Camera mainCamera;
 
     private void Awake()
@@ -70,11 +73,5 @@ public class InputManager : MonoBehaviour {
     public Vector2 PrimaryPosition()
     {
         return Utils.ScreenToWorld(mainCamera, touchControls.Touch.TouchPosition.ReadValue<Vector2>());
-    }
-
-    private void DrawTouch (Vector2 touchPosition)
-    {
-        Debug.DrawRay(touchPosition + new Vector2(-.1f, .1f), new Vector2(.2f, -.2f), Color.cyan);
-        Debug.DrawRay(touchPosition + new Vector2(.1f, .1f), new Vector2(-.2f, -.2f), Color.cyan);
     }
 }

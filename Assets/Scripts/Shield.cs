@@ -31,7 +31,8 @@ public class Shield : MonoBehaviour
 
         if (currentHits >= maxHits && !unbreakable)
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }
