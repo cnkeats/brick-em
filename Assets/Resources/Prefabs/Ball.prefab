@@ -104,7 +104,8 @@ MonoBehaviour:
   speedLimit: 50
   debugScale: 1
   debugPersistence: 2
-  maxBounces: 0
+  maxBounces: -1
+  bounces: 0
   ballState: 1
 --- !u!58 &8580257624287669781
 CircleCollider2D:

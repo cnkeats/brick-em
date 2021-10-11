@@ -10,14 +10,13 @@ public class Mino : MonoBehaviour
     public int maxHits = 1;
     public int currentHits = 0;
 
-    public void Hit()
+    public virtual void Hit()
     {
         currentHits++;
         
-        if (currentHits >= maxHits && maxHits > 0)
+        if (currentHits >= maxHits)
         {
             state = MinoState.DESTROYED;
-            //GameObject.Destroy(gameObject);
             gameObject.SetActive(false);
         }
     }

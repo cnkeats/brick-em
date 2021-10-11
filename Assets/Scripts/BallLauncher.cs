@@ -11,9 +11,12 @@ public class BallLauncher : MonoBehaviour
 
     private float width;
 
-    public GameObject ball;
+    public GameObject loadedAmmo;
+    public GameObject shotAmmo;
 
     public LineRenderer aimLine;
+
+    public bool lockedAndLoaded;
 
     void Awake()
     {
@@ -49,31 +52,39 @@ public class BallLauncher : MonoBehaviour
 
         BoxCollider2D collider = gameObject.GetComponent<BoxCollider2D>();
 
-        if (ball == null && collider.bounds.Contains(position))
+        if (shotAmmo == null && collider.bounds.Contains(position))
         {
-            ball = Instantiate(Resources.Load("Prefabs/Ball")) as GameObject;
-            ball.name = ball.name.Replace("(Clone)", "");
-            ball.transform.parent = GameObject.Find("DynamicContent").transform;
+            if (loadedAmmo == null)
+            {
+                shotAmmo = Instantiate(Resources.Load("Prefabs/Ball")) as GameObject;
+            }
+            else
+            {
+                shotAmmo = Instantiate(loadedAmmo);
+                shotAmmo.name = "TEST";
+            }
+            shotAmmo.name = shotAmmo.name.Replace("(Clone)", "");
+            shotAmmo.transform.parent = GameObject.Find("DynamicContent").transform;
 
         }
-        else if (ball != null && collider.bounds.Contains(position))
+        else if (shotAmmo != null && collider.bounds.Contains(position))
         {
 
         }
 
-        if (ball != null && ball.GetComponent<Ball>().ballState == Ball.BallState.LAUNCHING)
+        if (shotAmmo != null && shotAmmo.GetComponent<Ball>().ballState == Ball.BallState.LAUNCHING)
         {
-            ball.transform.position = transform.position;
+            shotAmmo.transform.position = transform.position;
         }
     }
 
     private void EndTouch(Vector2 position, float time)
     {
         //Utils.MarkPoint(position, Color.red, 5f);
-        if (ball != null && ball.GetComponent<Ball>().ballState == Ball.BallState.LAUNCHING)
+        if (shotAmmo != null && shotAmmo.GetComponent<Ball>().ballState == Ball.BallState.LAUNCHING)
         {
-            ball.GetComponent<Ball>().Launch(aim);
-            ball = null;
+            shotAmmo.GetComponent<Ball>().Launch(aim);
+            shotAmmo = null;
         }
         
         if (aimLine != null)
@@ -84,24 +95,32 @@ public class BallLauncher : MonoBehaviour
 
     private void AimBall(Vector2 touchedPosition)
     {
-        if (ball != null)
+        if (shotAmmo != null)
         {
             float clampedTouchedPosition = Mathf.Clamp(touchedPosition.x, -width / 2, width / 2);
             float percentageAcrossBoundingBox = (clampedTouchedPosition + width / 2) / width;
             float angle = Mathf.Lerp(-60, 60, percentageAcrossBoundingBox);
             aim = Quaternion.Euler(0, 0, -angle) * Vector2.up;
 
-            RaycastHit2D raycastHit = Physics2D.CircleCast(ball.transform.position, ball.GetComponent<CircleCollider2D>().radius * ball.GetComponent<CircleCollider2D>().transform.localScale.x, aim, 10f, LayerMask.GetMask("Ball", "Shield", "Launcher") ^ 0xFFFF);
+            RaycastHit2D raycastHit = Physics2D.CircleCast(shotAmmo.transform.position, shotAmmo.GetComponent<CircleCollider2D>().radius * shotAmmo.GetComponent<CircleCollider2D>().transform.localScale.x, aim, 10f, LayerMask.GetMask("Ball", "Shield", "Launcher") ^ 0xFFFF);
 
             if (raycastHit.collider != null)
             {
                 aimLine.positionCount = 2;
-                aimLine.SetPositions(new Vector3[] { ball.transform.position, raycastHit.centroid });
+                aimLine.SetPositions(new Vector3[] { shotAmmo.transform.position, raycastHit.centroid });
             }
         }
         else if (aimLine != null)
         {
             aimLine.positionCount = 0;
         }
+    }
+
+    public void LockAndLoad(Object ammo)
+    {
+        loadedAmmo = ammo as GameObject;
+        lockedAndLoaded = true;
+
+        Debug.Log(string.Format("Loading {0}", loadedAmmo));
     }
 }

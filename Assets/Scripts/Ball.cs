@@ -25,7 +25,8 @@ public class Ball : MonoBehaviour
     [Range(1, 10)]
     public float debugScale = 1;
     public float debugPersistence = 2f;
-    public int maxBounces = 0;
+    public int maxBounces = -1;
+    public int bounces = 0;
 
     public BallState ballState = BallState.LAUNCHING;
 
@@ -57,7 +58,7 @@ public class Ball : MonoBehaviour
         transform.up = gameObject.GetComponent<Rigidbody2D>().velocity.normalized;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Mino"))
         {
@@ -67,6 +68,14 @@ public class Ball : MonoBehaviour
         if (collision.gameObject.CompareTag("Shield"))
         {
             collision.gameObject.GetComponent<Shield>().Hit();
+        }
+        else if (!collision.collider.isTrigger)
+        {
+            bounces++;
+            if (maxBounces > 0 && bounces >= maxBounces)
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 
