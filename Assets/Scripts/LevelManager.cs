@@ -37,6 +37,7 @@ public class LevelManager : MonoBehaviour
     public void LoadLevel(string levelName)
     {
         GameObject staticContent = PrefabUtility.InstantiatePrefab(Resources.Load("Prefabs/StaticContent")) as GameObject;
+        staticContent.transform.Find("Shield").gameObject.SetActive(false);
         GameObject dynamicContent = PrefabUtility.InstantiatePrefab(Resources.Load("Prefabs/DynamicContent")) as GameObject;
         GameObject level = PrefabUtility.InstantiatePrefab(Resources.Load(string.Format("Levels/{0}", levelName))) as GameObject;
 

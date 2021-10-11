@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1071859879257912750}
   - component: {fileID: 5530963951538751150}
-  - component: {fileID: 6871758307956024696}
+  - component: {fileID: -3945256094109744549}
   - component: {fileID: 8486026218703142913}
   m_Layer: 11
   m_Name: StarMino
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6871758307956024696
+--- !u!114 &-3945256094109744549
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2875489456944577740}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd9c552c5de6c074f92c6283474c180b, type: 3}
+  m_Script: {fileID: 11500000, guid: 6853e681151ccb94aa3a3fdc098370d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0

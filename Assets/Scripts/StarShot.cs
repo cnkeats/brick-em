@@ -26,5 +26,6 @@ public class StarShot : Ball
 
         newBall.GetComponent<Rigidbody2D>().velocity = Quaternion.Euler(0, 0, angle) * collision.GetContact(0).normal * GetComponent<Rigidbody2D>().velocity.magnitude * 2.0f;
         newBall.GetComponent<TrailRenderer>().widthMultiplier = 0.2f;
+        newBall.transform.parent = GameObject.Find("DynamicContent").transform;
     }
 }

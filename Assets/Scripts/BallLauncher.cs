@@ -63,8 +63,10 @@ public class BallLauncher : MonoBehaviour
                 shotAmmo = Instantiate(loadedAmmo);
                 shotAmmo.name = "TEST";
             }
+
             shotAmmo.name = shotAmmo.name.Replace("(Clone)", "");
             shotAmmo.transform.parent = GameObject.Find("DynamicContent").transform;
+            loadedAmmo = null;
 
         }
         else if (shotAmmo != null && collider.bounds.Contains(position))
