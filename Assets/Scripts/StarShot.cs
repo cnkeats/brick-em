@@ -7,11 +7,6 @@ using UnityEngine.InputSystem;
 
 public class StarShot : Ball
 {
-    private void Awake()
-    {
-        Debug.Log("Star shot has awoken!");
-    }
-
     protected override void OnCollisionEnter2D(Collision2D collision)
     {
         base.OnCollisionEnter2D(collision);

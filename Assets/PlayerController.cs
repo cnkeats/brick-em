@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
          launcher = GameObject.Find("BallLauncher").GetComponent<BallLauncher>();
-        Debug.Log("test");
     }
 
     [ContextMenu("Get Star Shot")]
@@ -22,6 +21,7 @@ public class PlayerController : MonoBehaviour
     [ContextMenu("Lock and Load")]
     public void LockAndLoad()
     {
+        Debug.Log(PlayerState.starShots);
         if (PlayerState.starShots > 0)
         {
             PlayerState.starShots--;
@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            //launcher.
             launcher.LockAndLoad(Resources.Load("Prefabs/Ball"));
         }
     }

@@ -847,6 +847,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StaticContent
       objectReference: {fileID: 0}
+    - target: {fileID: 7709241309864958721, guid: 2836a9e46e757c94db69dac9cf8a5df6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7709241309864958723, guid: 2836a9e46e757c94db69dac9cf8a5df6, type: 3}
       propertyPath: unbreakable
       value: 1

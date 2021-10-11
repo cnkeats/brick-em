@@ -122,7 +122,5 @@ public class BallLauncher : MonoBehaviour
     {
         loadedAmmo = ammo as GameObject;
         lockedAndLoaded = true;
-
-        Debug.Log(string.Format("Loading {0}", loadedAmmo));
     }
 }
