@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,15 +22,20 @@ public class PlayerController : MonoBehaviour
     [ContextMenu("Lock and Load")]
     public void LockAndLoad()
     {
-        Debug.Log(PlayerState.starShots);
         if (PlayerState.starShots > 0)
         {
             PlayerState.starShots--;
-            launcher.LockAndLoad(Resources.Load("Prefabs/StarShot"));
+            //launcher.LockAndLoad(Resources.Load("Prefabs/StarShot"));
         }
         else
         {
-            launcher.LockAndLoad(Resources.Load("Prefabs/Ball"));
+            //launcher.LockAndLoad(Resources.Load("Prefabs/Ball"));
         }
+    }
+
+    internal static GameObject GetNextShot()
+    {
+        return Resources.Load("Prefabs/StarShot") as GameObject;
+        //throw new NotImplementedException();
     }
 }
