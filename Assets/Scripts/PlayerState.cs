@@ -4,10 +4,10 @@ using UnityEngine;
 
 public static class PlayerState
 {
-    public static int starShots = 0;
+    //public static int starShots = 0;
 
     public static void GetStarShot()
     {
-        starShots++;
+        //starShots++;
     }
 }

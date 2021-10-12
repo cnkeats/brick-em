@@ -516,6 +516,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   launcher: {fileID: 0}
+  shotLimit: 3
+  shotDisplayLimit: 9
 --- !u!4 &1103546323
 Transform:
   m_ObjectHideFlags: 0

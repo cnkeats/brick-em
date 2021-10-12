@@ -14,7 +14,7 @@ public class InputManager : MonoBehaviour {
     public event EndTouchEvent OnEndTouch;
 
     public delegate void PressEvent(Vector2 position);
-    public event PressEvent OnPress;
+    //public event PressEvent OnPress;
 
     private Camera mainCamera;
 

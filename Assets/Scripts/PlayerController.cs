@@ -11,55 +11,66 @@ public class PlayerController : MonoBehaviour
 
     [Space(20)]
     public int shotLimit = -1;
+    public int shotDisplayLimit = 7;
+    public static int usedShots = 0;
 
-    private static List<GameObject> shotQueueDisplay = new List<GameObject>();
+    private List<GameObject> shotQueueDisplay = new List<GameObject>();
 
     private static float edgeOffset = .2f;
     private static float queueOffset = .3f;
 
     private void Awake()
     {
-        launcher = GameObject.Find("BallLauncher").GetComponent<BallLauncher>();
+        launcher = FindObjectOfType<BallLauncher>();
 
-        shotQueue.Add(Resources.Load("Prefabs/Ball") as GameObject);
-        shotQueue.Add(Resources.Load("Prefabs/Ball") as GameObject);
-        shotQueue.Add(Resources.Load("Prefabs/StarShot") as GameObject);
-        shotQueue.Add(Resources.Load("Prefabs/StarShot") as GameObject);
-        shotQueue.Add(Resources.Load("Prefabs/Ball") as GameObject);
+        for (int i = 0; i < 5; i++)
+        {
+            AddDefaultShotToQueue();
+        }
 
-        Debug.Log(shotQueue.Count);
-
-        CreateShotQueueDisplay();
+        UpdateQueueDisplay();
     }
 
     public void Update()
     {
     }
 
-    public static GameObject PopShotQueue()
+    public GameObject PopShotQueue()
     {
+        if (shotQueue.Count == 0)
+        {
+            return null;
+        }
+
         GameObject nextshot = shotQueue[0];
         shotQueue.RemoveAt(0);
-
         RemoveFirstFromShotQueueDisplay();
+
+        usedShots++;
 
         return nextshot;
     }
 
-    private static void RemoveFirstFromShotQueueDisplay()
+    private void RemoveFirstFromShotQueueDisplay()
     {
         Destroy(shotQueueDisplay[0]);
         shotQueueDisplay.RemoveAt(0);
 
-        foreach (GameObject shotQueueSprite in shotQueueDisplay)
-        {
-            shotQueueSprite.transform.Translate(Vector2.left * queueOffset);
-        }
+        UpdateQueueDisplay();
     }
 
-    private void CreateShotQueueDisplay()
+    private void UpdateQueueDisplay()
     {
-        for (int i = 0; i < shotQueue.Count; i++)
+        foreach (GameObject shotQueueSprite in shotQueueDisplay)
+        {
+            //shotQueueSprite.transform.Translate(Vector2.left * queueOffset);
+            Destroy(shotQueueSprite);
+        }
+
+        int currentlyQueuedShots = shotQueue.Count;
+        int limit = Math.Min(shotDisplayLimit, currentlyQueuedShots);
+
+        for (int i = 0; i < limit; i++)
         {
             GameObject shotToDisplay = Instantiate(shotQueue[i]);
             shotToDisplay.name = shotToDisplay.name.Replace("(Clone)", "");
@@ -81,5 +92,28 @@ public class PlayerController : MonoBehaviour
 
             shotQueueDisplay.Add(shotToDisplay);
         }
+    }
+
+    private void AddDefaultShotToQueue()
+    {
+        AddShotToQueue("Ball");
+    }
+
+    [ContextMenu("Get Star Shot")]
+    private void AddStarShotToQueue()
+    {
+        AddShotToQueue("StarShot");
+    }
+
+    public void AddShotToQueue(string shotName)
+    {
+        GameObject shotToAdd = Resources.Load(string.Format("Prefabs/{0}", shotName)) as GameObject;
+
+        if (shotToAdd != null)
+        {
+            shotQueue.Add(shotToAdd);
+        }
+
+        UpdateQueueDisplay();
     }
 }

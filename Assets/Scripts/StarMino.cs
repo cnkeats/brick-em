@@ -9,5 +9,6 @@ public class StarMino : Mino
         base.Hit();
 
         PlayerState.GetStarShot();
+        FindObjectOfType<PlayerController>().AddShotToQueue("StarShot");
     }
 }
