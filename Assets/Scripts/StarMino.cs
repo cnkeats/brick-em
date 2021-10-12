@@ -9,6 +9,5 @@ public class StarMino : Mino
         base.Hit();
 
         PlayerState.GetStarShot();
-        GameObject.Find("Player").GetComponent<PlayerController>().LockAndLoad();
     }
 }

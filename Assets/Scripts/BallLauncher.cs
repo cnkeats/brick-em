@@ -59,7 +59,7 @@ public class BallLauncher : MonoBehaviour
 
         if (state == BallLauncherState.INACTIVE && collider.bounds.Contains(position)) 
         {
-            objectToLaunch = Instantiate(PlayerController.GetNextShot());
+            objectToLaunch = Instantiate(PlayerController.PopShotQueue());
             objectToLaunch.gameObject.transform.parent = GameObject.Find("DynamicContent").transform;
             objectToLaunch.name = objectToLaunch.name.Replace("(Clone)", "");
             objectToLaunch.gameObject.transform.position = new Vector3(0, transform.position.y, 0);
@@ -70,8 +70,10 @@ public class BallLauncher : MonoBehaviour
 
     private void EndTouch(Vector2 position, float time)
     {
+        Debug.Log(state);
         if (state == BallLauncherState.AIMING)
         {
+            AimBall(position);
              aimLine.positionCount = 0;
 
             objectToLaunch.GetComponent<Ball>().Launch(aim);
