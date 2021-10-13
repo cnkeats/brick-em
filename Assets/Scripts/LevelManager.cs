@@ -111,12 +111,36 @@ public class LevelManager : MonoBehaviour
 
     public void Update()
     {
-        if ((currentBreakableMinos.Count == 0 || player.usedShots >= currentLevel.levelMetadata.shotsAllowed) && currentProjectiles.Count == 0 && !waitingToLoad)
+        if (!waitingToLoad)
         {
-            waitingToLoad = true;
+            CheckForLevelFinished();
+        }
+    }
+
+    private void CheckForLevelFinished()
+    {
+        if (currentProjectiles.Count > 0)
+        {
+            return;
+        }
+
+        int minosRemaining = currentBreakableMinos.Count;
+        if (minosRemaining == 0)
+        {
             Debug.Log("Level complete!");
 
             Invoke("LoadNextLevel", 2.5f);
+            waitingToLoad = true;
+            return;
+        }
+
+        int shotsInQueue = PlayerController.shotQueue.Count;
+        int levelShotLimit = currentLevel.levelMetadata.shotsAllowed;
+        if (player.usedShots >= levelShotLimit && shotsInQueue == 0)
+        {
+            Debug.Log("Level failed! :(");
+            Invoke("LoadNextLevel", 2.5f);
+            waitingToLoad = true;
         }
     }
 }
