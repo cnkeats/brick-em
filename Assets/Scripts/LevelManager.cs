@@ -10,6 +10,8 @@ public class LevelManager : MonoBehaviour
 {
     public LevelGenerator levelGenerator;
 
+    public Level currentLevel;
+
     public void LoadLevelFromGenerator(LevelGenerator levelGenerator)
     {
         this.levelGenerator = levelGenerator;
@@ -49,5 +51,14 @@ public class LevelManager : MonoBehaviour
         staticContent.transform.parent = GameObject.Find("GameArea").transform;
         dynamicContent.transform.parent = GameObject.Find("GameArea").transform;
         level.transform.parent = GameObject.Find("GameArea").transform;
+    }
+
+    [ContextMenu("Test load level")]
+    public void TestLoad()
+    {
+        string levelName = "Level_0";
+
+        Type levelType = Type.GetType(levelName);
+        Level level = Activator.CreateInstance(levelType) as Level;
     }
 }

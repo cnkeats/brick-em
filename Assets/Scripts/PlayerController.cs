@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     public int shotDisplayLimit = 7;
     public static int usedShots = 0;
 
-    private static int level = 2;
+    //private static int level = 2;
     private static int score = 0;
 
     private void Awake()
