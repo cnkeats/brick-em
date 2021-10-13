@@ -31,8 +31,6 @@ public class PlayerController : MonoBehaviour
         launcher = FindObjectOfType<BallLauncher>();
         shotQueue = new List<GameObject>();
 
-        Debug.Log(currentLevel);
-        Debug.Log(currentLevel.levelMetadata.shotsAllowed);
         for (int i = 0; i < currentLevel.levelMetadata.shotsAllowed; i++)
         {
             AddDefaultShotToQueue();

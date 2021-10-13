@@ -26,7 +26,6 @@ public class LevelManager : MonoBehaviour
         {
             currentLevelIndex = Array.FindIndex(levelList, n => n.Equals(currentLevelObject.name));
             currentLevel = LoadLevelByIndex(currentLevelIndex);
-            Debug.Log(string.Format("Telling player to update to {0}", currentLevel));
             player.UpdateCurrentLevel(currentLevel);
         }
         else
@@ -35,48 +34,7 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void LoadLevelFromGenerator(LevelGenerator levelGenerator)
-    {
-        this.levelGenerator = levelGenerator;
-        //this.levelGenerator.bounds = GameObject.Find("GameArea").GetComponent<EdgeCollider2D>().bounds;
-        levelGenerator.Generate();
-        //this.levelGenerator.GetMinos();
-    }
-
-    public void ReloadLevel()
-    {
-        string name = "";
-
-        foreach (Transform transform in GameObject.Find("GameArea").transform)
-        {
-            if (transform.gameObject.name.StartsWith("Level_"))
-            {
-                name = transform.gameObject.name;
-            }
-            Destroy(transform.gameObject);
-        }
-
-        GameObject.Find("Player").GetComponent<PlayerController>().Setup();
-        LoadLevel(name);
-    }
-
-    public void LoadLevel(string levelName)
-    {
-        GameObject staticContent = Instantiate(Resources.Load("Prefabs/StaticContent")) as GameObject;
-        staticContent.transform.Find("Shield").gameObject.SetActive(false);
-        GameObject dynamicContent = Instantiate(Resources.Load("Prefabs/DynamicContent")) as GameObject;
-        GameObject level = Instantiate(Resources.Load(string.Format("Levels/{0}", levelName))) as GameObject;
-
-        staticContent.gameObject.name = staticContent.gameObject.name.Replace("(Clone)", "");
-        dynamicContent.gameObject.name = dynamicContent.gameObject.name.Replace("(Clone)", "");
-        level.gameObject.name = level.gameObject.name.Replace("(Clone)", "");
-
-        staticContent.transform.parent = GameObject.Find("GameArea").transform;
-        dynamicContent.transform.parent = GameObject.Find("GameArea").transform;
-        level.transform.parent = GameObject.Find("GameArea").transform;
-    }
-
-    public void LoadNextLevelByButton()
+    public void LoadNextLevelButtonClick()
     {
         LoadNextLevel();
     }
@@ -126,8 +84,6 @@ public class LevelManager : MonoBehaviour
 
 
         currentLevel = level;
-
-        Debug.Log(currentLevel);
 
         // Create level objects
         currentLevelObject = Instantiate(level.levelContent);
