@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,11 +15,6 @@ public class PlayerController : MonoBehaviour
     public int shotDisplayLimit = 7;
     public static int usedShots = 0;
 
-    private List<GameObject> shotQueueDisplay = new List<GameObject>();
-
-    private static float edgeOffset = .2f;
-    private static float queueOffset = .3f;
-
     private void Awake()
     {
         launcher = FindObjectOfType<BallLauncher>();
@@ -27,8 +23,6 @@ public class PlayerController : MonoBehaviour
         {
             AddDefaultShotToQueue();
         }
-
-        UpdateQueueDisplay();
     }
 
     public void Update()
@@ -44,54 +38,11 @@ public class PlayerController : MonoBehaviour
 
         GameObject nextshot = shotQueue[0];
         shotQueue.RemoveAt(0);
-        RemoveFirstFromShotQueueDisplay();
-
         usedShots++;
 
+        UpdateNextShotImage();
+
         return nextshot;
-    }
-
-    private void RemoveFirstFromShotQueueDisplay()
-    {
-        Destroy(shotQueueDisplay[0]);
-        shotQueueDisplay.RemoveAt(0);
-
-        UpdateQueueDisplay();
-    }
-
-    private void UpdateQueueDisplay()
-    {
-        foreach (GameObject shotQueueSprite in shotQueueDisplay)
-        {
-            //shotQueueSprite.transform.Translate(Vector2.left * queueOffset);
-            Destroy(shotQueueSprite);
-        }
-
-        int currentlyQueuedShots = shotQueue.Count;
-        int limit = Math.Min(shotDisplayLimit, currentlyQueuedShots);
-
-        for (int i = 0; i < limit; i++)
-        {
-            GameObject shotToDisplay = Instantiate(shotQueue[i]);
-            shotToDisplay.name = shotToDisplay.name.Replace("(Clone)", "");
-            shotToDisplay.transform.parent = transform;
-
-            // Destroy all components except Transform and SpriteRenderer
-            foreach (Component component in shotToDisplay.GetComponents<Component>().Where(c => c.GetType() != typeof(Transform) && c.GetType() != typeof(SpriteRenderer)))
-            {
-                Destroy(component);
-            }
-
-            float cameraHalfHeight = Camera.main.orthographicSize;
-            float cameraHalfWidth = cameraHalfHeight * Camera.main.aspect;
-
-            Vector2 bottomLeftCorner = new Vector2(-cameraHalfWidth, -cameraHalfHeight);
-            Vector2 position = bottomLeftCorner + Vector2.up * edgeOffset + (Vector2.right * edgeOffset) + (Vector2.right * queueOffset * i);
-
-            shotToDisplay.transform.position = position;
-
-            shotQueueDisplay.Add(shotToDisplay);
-        }
     }
 
     private void AddDefaultShotToQueue()
@@ -111,9 +62,27 @@ public class PlayerController : MonoBehaviour
 
         if (shotToAdd != null)
         {
-            shotQueue.Add(shotToAdd);
+            if (!shotName.Equals("Ball"))
+            {
+                //GameObject nextDefaultShot = shotQueue.Where(s => s.name.Equals("Ball")).FirstOrDefault();
+                //shotQueue.Remove(nextDefaultShot);
+            }
+
+            shotQueue.Insert(0, shotToAdd);
         }
 
-        UpdateQueueDisplay();
+        UpdateNextShotImage();
+    }
+
+    public void UpdateNextShotImage()
+    {
+        if (shotQueue.Count > 0)
+        {
+            GameObject.Find("NextShotImage").GetComponent<Image>().sprite = shotQueue[0].GetComponent<SpriteRenderer>().sprite;
+        }
+        else
+        {
+            GameObject.Find("NextShotImage").GetComponent<Image>().sprite = (Resources.Load("Prefabs/Ball") as GameObject).GetComponent<SpriteRenderer>().sprite;
+        }
     }
 }
