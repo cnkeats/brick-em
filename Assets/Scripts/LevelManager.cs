@@ -15,7 +15,7 @@ public class LevelManager : MonoBehaviour
 
     private PlayerController player;
 
-    private string[] levelList = { "Level_0", "Level_2" };
+    private string[] levelList = { "Level_0", "Level_1", "Level_2" };
     private int currentLevelIndex = -1;
 
     public void Awake()
@@ -25,6 +25,13 @@ public class LevelManager : MonoBehaviour
         if (currentLevelObject != null)
         {
             currentLevelIndex = Array.FindIndex(levelList, n => n.Equals(currentLevelObject.name));
+            currentLevel = LoadLevelByIndex(currentLevelIndex);
+            Debug.Log(string.Format("Telling player to update to {0}", currentLevel));
+            player.UpdateCurrentLevel(currentLevel);
+        }
+        else
+        {
+            LoadNextLevel();
         }
     }
 
@@ -69,13 +76,23 @@ public class LevelManager : MonoBehaviour
         level.transform.parent = GameObject.Find("GameArea").transform;
     }
 
+    public void LoadNextLevelByButton()
+    {
+        LoadNextLevel();
+    }
+
     [ContextMenu("Load next level")]
-    public void LoadNextLevel()
+    public Level LoadNextLevel()
     {
         currentLevelIndex += 1;
-        string nextLevelName = levelList[currentLevelIndex % levelList.Length];
+        return LoadLevelByIndex(currentLevelIndex);
+    }
 
-        Debug.Log(string.Format("Loading index {0} - {1}", currentLevelIndex, nextLevelName));
+    public Level LoadLevelByIndex(int levelIndex)
+    {
+        string nextLevelName = levelList[levelIndex % levelList.Length];
+
+        Debug.Log(string.Format("Loading index {0} - {1}", levelIndex, nextLevelName));
 
         Type levelType = Type.GetType(nextLevelName);
         Level level = Activator.CreateInstance(levelType) as Level;
@@ -83,10 +100,10 @@ public class LevelManager : MonoBehaviour
         if (level == null)
         {
             Debug.Log(string.Format("Failed to load level {0}!", nextLevelName));
-            return;
+            return null;
         }
 
-        Transform parent = currentLevelObject.transform.parent;
+        Transform parent = (currentLevelObject != null) ? currentLevelObject.transform.parent : GameObject.Find("GameArea").transform;
 
         if (Application.isEditor)
         {
@@ -110,14 +127,24 @@ public class LevelManager : MonoBehaviour
 
         currentLevel = level;
 
+        Debug.Log(currentLevel);
+
         // Create level objects
         currentLevelObject = Instantiate(level.levelContent);
         currentLevelObject.transform.parent = parent;
-        currentLevelObject.name = level.levelMetadata.name;
+        currentLevelObject.name = level.levelMetadata.prefabName;
         currentLevelObject.tag = "Level";
 
-        // Update player data
-        player.LevelAdvance();
+        // Update UI
+        UIManager.UpdateWithLevel(currentLevel);
 
+        if (player != null)
+        {
+            // Update player data
+            player.UpdateCurrentLevel(currentLevel);
+            player.LevelAdvance();
+        }
+        
+        return currentLevel;
     }
 }

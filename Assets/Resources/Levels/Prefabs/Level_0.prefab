@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5039234514525691609}
   m_Layer: 0
   m_Name: Level_0
-  m_TagString: Untagged
+  m_TagString: Level
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -185,8 +185,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238043712868
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -312,8 +310,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238063200942
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -439,8 +435,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761237957008953
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -566,8 +560,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761237950052695
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -693,8 +685,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761237998313127
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -820,8 +810,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238185445976
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -947,8 +935,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238225455443
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1074,8 +1060,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238233722954
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1201,8 +1185,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238421767616
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1328,8 +1310,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238434713151
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1455,8 +1435,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238463881847
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1582,8 +1560,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238361861144
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1709,8 +1685,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238350251127
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1836,8 +1810,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238376750699
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1963,8 +1935,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238561521623
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2090,8 +2060,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238506049069
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2217,8 +2185,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238521723727
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2344,8 +2310,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238548014096
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2471,8 +2435,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238542918554
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2598,8 +2560,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238693227315
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2725,8 +2685,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238704053733
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2852,8 +2810,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238749927299
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2979,8 +2935,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238657880826
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3106,8 +3060,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238683389266
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3233,8 +3185,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238673208583
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3360,8 +3310,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238834774762
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3487,8 +3435,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238826706252
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3614,8 +3560,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238963008168
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3741,8 +3685,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238979862444
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3868,8 +3810,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238993330639
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3995,8 +3935,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238895299867
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4122,8 +4060,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761238921300389
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4249,8 +4185,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761239149743085
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4376,8 +4310,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761239144603966
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4503,8 +4435,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761239050020957
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4630,8 +4560,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761239043214446
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4757,8 +4685,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761239037517233
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4884,8 +4810,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761239241582622
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5011,8 +4935,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761239362618534
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5138,8 +5060,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761239400353627
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5265,8 +5185,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761239392404041
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5392,8 +5310,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761239406425871
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5519,8 +5435,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761239328947507
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5646,8 +5560,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761239550505731
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5773,8 +5685,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761239544230736
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5900,8 +5810,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761239435781527
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6027,8 +5935,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761239444917047
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6154,8 +6060,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761239567638334
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6281,8 +6185,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761239608577716
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6408,8 +6310,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761239764412569
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6535,8 +6435,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761239794715671
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6662,8 +6560,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761239706132823
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6789,8 +6685,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761239692567100
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6916,8 +6810,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761239897502997
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7043,8 +6935,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761239919091434
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7170,8 +7060,6 @@ MonoBehaviour:
   state: 0
   maxHits: 1
   currentHits: 0
-  width: 0.54
-  height: 0.54
 --- !u!61 &3470761239975390695
 BoxCollider2D:
   m_ObjectHideFlags: 0

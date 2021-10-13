@@ -20,9 +20,9 @@ public class PlayerController : MonoBehaviour
 
     private Level currentLevel;
 
-    private void Awake()
+    public void UpdateCurrentLevel(Level level)
     {
-        currentLevel ??= new Level_0();
+        currentLevel = level;
         Setup();
     }
 
@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
         launcher = FindObjectOfType<BallLauncher>();
         shotQueue = new List<GameObject>();
 
+        Debug.Log(currentLevel);
+        Debug.Log(currentLevel.levelMetadata.shotsAllowed);
         for (int i = 0; i < currentLevel.levelMetadata.shotsAllowed; i++)
         {
             AddDefaultShotToQueue();

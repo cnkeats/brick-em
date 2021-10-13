@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Level_0 : Level
 {
-    public Level_0() : base()
+    public Level_0()
     {
         levelMetadata = new LevelMetadata();
-        levelMetadata.name = "Level_0";
+        levelMetadata.name = "Level 0";
+        levelMetadata.prefabName = "Level_0";
         levelMetadata.blurb = "BLURB TEST";
         levelMetadata.description = "DESCRIPTION TEST";
         levelMetadata.baseScore = 0;

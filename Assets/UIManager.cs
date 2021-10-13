@@ -5,10 +5,14 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     private TMPro.TextMeshProUGUI shotsRemainingText;
+    private static TMPro.TextMeshProUGUI scoreText;
+    private static TMPro.TextMeshProUGUI levelText;
 
     private void Awake()
     {
         shotsRemainingText = GameObject.Find("ShotsRemainingText").GetComponent<TMPro.TextMeshProUGUI>();
+        scoreText = GameObject.Find("ScoreText").GetComponent<TMPro.TextMeshProUGUI>();
+        levelText = GameObject.Find("LevelText").GetComponent<TMPro.TextMeshProUGUI>();
     }
 
     public void Update()
@@ -26,6 +30,11 @@ public class UIManager : MonoBehaviour
 
     public static void UpdateScoreDisplay(int score)
     {
-        GameObject.Find("ScoreText").GetComponent<TMPro.TextMeshProUGUI>().text = score.ToString("N0");
+        scoreText.text = score.ToString("N0");
+    }
+
+    public static void UpdateWithLevel(Level level)
+    {
+        levelText.text = level.levelMetadata.name;
     }
 }

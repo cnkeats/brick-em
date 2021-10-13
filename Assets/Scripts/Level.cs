@@ -11,12 +11,11 @@ public abstract class Level
     public Level()
     {
         levelMetadata = new LevelMetadata();
-        SetLevelContentAsPrefabByName();
     }
 
     protected GameObject SetLevelContentAsPrefabByName()
     {
-        levelContent = Resources.Load(string.Format("Levels/{0}", levelMetadata.name)) as GameObject;
+        levelContent = Resources.Load(string.Format("Levels/Prefabs/{0}", levelMetadata.prefabName)) as GameObject;
         return levelContent;
     }
 }
