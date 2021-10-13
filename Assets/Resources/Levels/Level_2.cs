@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Level_0 : Level
+public class Level_2 : Level
 {
-    public Level_0() : base()
+    public Level_2() : base()
     {
         levelMetadata = new LevelMetadata();
-        levelMetadata.name = "Level_0";
+        levelMetadata.name = "Level_2";
         levelMetadata.blurb = "BLURB TEST";
         levelMetadata.description = "DESCRIPTION TEST";
         levelMetadata.baseScore = 0;

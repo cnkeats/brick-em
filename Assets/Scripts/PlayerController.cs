@@ -13,24 +13,35 @@ public class PlayerController : MonoBehaviour
     [Space(20)]
     public int shotLimit = -1;
     public int shotDisplayLimit = 7;
-    public static int usedShots = 0;
+    public int usedShots = 0;
 
-    //private static int level = 2;
     private static int score = 0;
+    private int levelsBeaten = 0;
+
+    private Level currentLevel;
 
     private void Awake()
     {
+        currentLevel ??= new Level_0();
         Setup();
     }
 
     public void Setup()
     {
         launcher = FindObjectOfType<BallLauncher>();
+        shotQueue = new List<GameObject>();
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < currentLevel.levelMetadata.shotsAllowed; i++)
         {
             AddDefaultShotToQueue();
         }
+    }
+
+    public void LevelAdvance()
+    {
+        Setup();
+        usedShots = 0;
+        levelsBeaten++;
     }
 
     public void Update()

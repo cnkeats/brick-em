@@ -4987,7 +4987,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2875489456944577740, guid: 7e755945133f91d44ad9df19b41cda51, type: 3}
       propertyPath: m_Name
-      value: SteelMino (1)
+      value: SteelMino
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e755945133f91d44ad9df19b41cda51, type: 3}

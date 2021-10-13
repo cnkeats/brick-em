@@ -11,6 +11,22 @@ public class LevelManager : MonoBehaviour
     public LevelGenerator levelGenerator;
 
     public Level currentLevel;
+    public GameObject currentLevelObject;
+
+    private PlayerController player;
+
+    private string[] levelList = { "Level_0", "Level_2" };
+    private int currentLevelIndex = -1;
+
+    public void Awake()
+    {
+        player = FindObjectOfType<PlayerController>();
+
+        if (currentLevelObject != null)
+        {
+            currentLevelIndex = Array.FindIndex(levelList, n => n.Equals(currentLevelObject.name));
+        }
+    }
 
     public void LoadLevelFromGenerator(LevelGenerator levelGenerator)
     {
@@ -53,12 +69,55 @@ public class LevelManager : MonoBehaviour
         level.transform.parent = GameObject.Find("GameArea").transform;
     }
 
-    [ContextMenu("Test load level")]
-    public void TestLoad()
+    [ContextMenu("Load next level")]
+    public void LoadNextLevel()
     {
-        string levelName = "Level_0";
+        currentLevelIndex += 1;
+        string nextLevelName = levelList[currentLevelIndex % levelList.Length];
 
-        Type levelType = Type.GetType(levelName);
+        Debug.Log(string.Format("Loading index {0} - {1}", currentLevelIndex, nextLevelName));
+
+        Type levelType = Type.GetType(nextLevelName);
         Level level = Activator.CreateInstance(levelType) as Level;
+
+        if (level == null)
+        {
+            Debug.Log(string.Format("Failed to load level {0}!", nextLevelName));
+            return;
+        }
+
+        Transform parent = currentLevelObject.transform.parent;
+
+        if (Application.isEditor)
+        {
+            DestroyImmediate(currentLevelObject);
+
+            foreach (Ball ball in FindObjectsOfType<Ball>())
+            {
+                DestroyImmediate(ball.gameObject);
+            }
+        }
+        else
+        {
+            Destroy(currentLevelObject);
+
+            foreach (Ball ball in FindObjectsOfType<Ball>())
+            {
+                Destroy(ball.gameObject);
+            }
+        }
+
+
+        currentLevel = level;
+
+        // Create level objects
+        currentLevelObject = Instantiate(level.levelContent);
+        currentLevelObject.transform.parent = parent;
+        currentLevelObject.name = level.levelMetadata.name;
+        currentLevelObject.tag = "Level";
+
+        // Update player data
+        player.LevelAdvance();
+
     }
 }
