@@ -23,4 +23,9 @@ public class UIManager : MonoBehaviour
             
         }
     }
+
+    public static void UpdateScoreDisplay(int score)
+    {
+        GameObject.Find("ScoreText").GetComponent<TMPro.TextMeshProUGUI>().text = score.ToString("N0");
+    }
 }

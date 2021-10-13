@@ -31,6 +31,7 @@ public class LevelManager : MonoBehaviour
             Destroy(transform.gameObject);
         }
 
+        GameObject.Find("Player").GetComponent<PlayerController>().Setup();
         LoadLevel(name);
     }
 

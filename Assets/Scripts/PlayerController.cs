@@ -15,7 +15,15 @@ public class PlayerController : MonoBehaviour
     public int shotDisplayLimit = 7;
     public static int usedShots = 0;
 
+    private static int level = 2;
+    private static int score = 0;
+
     private void Awake()
+    {
+        Setup();
+    }
+
+    public void Setup()
     {
         launcher = FindObjectOfType<BallLauncher>();
 
@@ -27,6 +35,20 @@ public class PlayerController : MonoBehaviour
 
     public void Update()
     {
+
+    }
+
+    public static int AddToScore(int points)
+    {
+        score += points;
+        UIManager.UpdateScoreDisplay(score);
+
+        return score;
+    }
+
+    public int GetScore()
+    {
+        return score;
     }
 
     public GameObject PopShotQueue()

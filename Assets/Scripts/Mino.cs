@@ -10,6 +10,8 @@ public class Mino : MonoBehaviour
     public int maxHits = 1;
     public int currentHits = 0;
 
+    virtual public int baseScoreValue { get => 25; }
+
     public virtual void Hit()
     {
         currentHits++;
@@ -18,6 +20,8 @@ public class Mino : MonoBehaviour
         {
             state = MinoState.DESTROYED;
             gameObject.SetActive(false);
+
+            PlayerController.AddToScore(baseScoreValue);
         }
     }
 }
