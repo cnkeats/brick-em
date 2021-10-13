@@ -35,6 +35,6 @@ public class UIManager : MonoBehaviour
 
     public static void UpdateWithLevel(Level level)
     {
-        levelText.text = level.levelMetadata.name;
+        levelText.text = level?.levelMetadata.name ?? "-";
     }
 }

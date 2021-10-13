@@ -39,6 +39,16 @@ public class Ball : MonoBehaviour
         ACTIVE = 2
     }
 
+    private void OnEnable()
+    {
+        LevelManager.currentProjectiles.Add(this);
+    }
+
+    private void OnDisable()
+    {
+        LevelManager.currentProjectiles.Remove(this);
+    }
+
     [ExecuteInEditMode]
     void Awake()
     {

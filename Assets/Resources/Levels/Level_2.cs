@@ -12,7 +12,7 @@ public class Level_2 : Level
         levelMetadata.blurb = "BLURB TEST";
         levelMetadata.description = "DESCRIPTION TEST";
         levelMetadata.baseScore = 0;
-        levelMetadata.shotsAllowed = 15;
+        levelMetadata.shotsAllowed = 152;
 
         SetLevelContentAsPrefabByName();
     }

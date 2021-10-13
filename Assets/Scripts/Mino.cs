@@ -24,4 +24,20 @@ public class Mino : MonoBehaviour
             PlayerController.AddToScore(baseScoreValue);
         }
     }
+
+    private void OnEnable()
+    {
+        if (maxHits > 0)
+        {
+            LevelManager.currentBreakableMinos.Add(this);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (maxHits > 0)
+        {
+            LevelManager.currentBreakableMinos.Remove(this);
+        }
+    }
 }

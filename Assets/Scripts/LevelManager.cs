@@ -18,6 +18,11 @@ public class LevelManager : MonoBehaviour
     private string[] levelList = { "Level_0", "Level_1", "Level_2" };
     private int currentLevelIndex = -1;
 
+    public static List<Mino> currentBreakableMinos = new List<Mino>();
+    public static List<Ball> currentProjectiles = new List<Ball>();
+
+    private bool waitingToLoad = false;
+
     public void Awake()
     {
         player = FindObjectOfType<PlayerController>();
@@ -82,7 +87,6 @@ public class LevelManager : MonoBehaviour
             }
         }
 
-
         currentLevel = level;
 
         // Create level objects
@@ -100,7 +104,19 @@ public class LevelManager : MonoBehaviour
             player.UpdateCurrentLevel(currentLevel);
             player.LevelAdvance();
         }
-        
+
+        waitingToLoad = false;
         return currentLevel;
+    }
+
+    public void Update()
+    {
+        if ((currentBreakableMinos.Count == 0 || player.usedShots >= currentLevel.levelMetadata.shotsAllowed) && currentProjectiles.Count == 0 && !waitingToLoad)
+        {
+            waitingToLoad = true;
+            Debug.Log("Level complete!");
+
+            Invoke("LoadNextLevel", 2.5f);
+        }
     }
 }

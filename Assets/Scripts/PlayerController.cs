@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public void UpdateCurrentLevel(Level level)
     {
         currentLevel = level;
+        usedShots = 0;
         Setup();
     }
 
