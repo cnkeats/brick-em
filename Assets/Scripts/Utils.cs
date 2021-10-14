@@ -18,4 +18,9 @@ public class Utils
     {
         return Mathf.Round(value / increment) * increment;
     }
+
+    public static void DebugMessage()
+    {
+        Debug.LogWarning("Debug message!");
+    }
 }
