@@ -103,7 +103,7 @@ public class BallLauncher : MonoBehaviour
             float angle = Mathf.Lerp(-60, 60, percentageAcrossBoundingBox);
             aim = Quaternion.Euler(0, 0, -angle) * Vector2.up;
 
-            RaycastHit2D raycastHit = Physics2D.CircleCast(objectToLaunch.transform.position, objectToLaunch.GetComponent<CircleCollider2D>().radius * objectToLaunch.GetComponent<CircleCollider2D>().transform.localScale.x, aim, 10f, LayerMask.GetMask("Ball", "Shield", "Launcher") ^ 0xFFFF);
+            RaycastHit2D raycastHit = Physics2D.CircleCast(objectToLaunch.transform.position, (objectToLaunch.GetComponent<CircleCollider2D>().radius * objectToLaunch.GetComponent<CircleCollider2D>().transform.localScale.x) + Physics2D.defaultContactOffset*2, aim, 10f, LayerMask.GetMask("Ball", "Shield", "Launcher") ^ 0xFFFF);
 
             if (raycastHit.collider != null)
             {

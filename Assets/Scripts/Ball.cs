@@ -113,7 +113,7 @@ public class Ball : MonoBehaviour
         if (velocity.magnitude != 0)
         {
             Vector2 startingPoint = transform.position;
-            RaycastHit2D raycastHit =  Physics2D.CircleCast(startingPoint, radius + Physics2D.defaultContactOffset, velocity, 10f, LayerMask.GetMask("Ball") ^ 0xFFFF);
+            RaycastHit2D raycastHit =  Physics2D.CircleCast(startingPoint, radius + Physics2D.defaultContactOffset * 2, velocity, 10f, LayerMask.GetMask("Ball") ^ 0xFFFF);
 
             MarkPoint(startingPoint, Color.magenta);
 
