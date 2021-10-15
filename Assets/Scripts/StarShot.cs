@@ -11,7 +11,7 @@ public class StarShot : Ball
     {
         base.OnCollisionEnter2D(collision);
 
-        GameObject newBall = Instantiate(Resources.Load("Prefabs/Ball")) as GameObject;
+        GameObject newBall = Instantiate(Resources.Load("Projectiles/Ball")) as GameObject;
         newBall.GetComponent<Ball>().maxBounces = 5;
         newBall.GetComponent<Ball>().ballState = BallState.ACTIVE;
         newBall.transform.position = transform.position;

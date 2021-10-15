@@ -19,6 +19,12 @@ public class PlayerController : MonoBehaviour
     private int levelsBeaten = 0;
 
     private Level currentLevel;
+    private static LevelManager levelManager;
+
+    private void Awake()
+    {
+        levelManager = FindObjectOfType<LevelManager>();
+    }
 
     public void UpdateCurrentLevel(Level level)
     {
@@ -52,8 +58,13 @@ public class PlayerController : MonoBehaviour
 
     public static int AddToScore(int points)
     {
-        score += points;
-        UIManager.UpdateScoreDisplay(score);
+        int realGain = (int)(points * levelManager.currentLevel.levelMetadata.scoreMultiplier);
+
+        if (realGain != 0)
+        {
+            score += realGain;
+            UIManager.UpdateScoreDisplay(score);
+        }
 
         return score;
     }
@@ -81,8 +92,11 @@ public class PlayerController : MonoBehaviour
 
     public void GainNextShot(GameObject gameObject)
     {
-        shotQueue.Insert(0, gameObject);
-        UpdateNextShotImage();
+        if (gameObject != null)
+        {
+            shotQueue.Insert(0, gameObject);
+            UpdateNextShotImage();
+        }
     }
 
     private void AddDefaultShotToQueue()
@@ -98,7 +112,7 @@ public class PlayerController : MonoBehaviour
 
     public void AddShotToQueue(string shotName)
     {
-        GameObject shotToAdd = Resources.Load(string.Format("Prefabs/{0}", shotName)) as GameObject;
+        GameObject shotToAdd = Resources.Load(string.Format("Projectiles/{0}", shotName)) as GameObject;
 
         if (shotToAdd != null)
         {
@@ -122,7 +136,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            GameObject.Find("NextShotImage").GetComponent<Image>().sprite = (Resources.Load("Prefabs/Ball") as GameObject).GetComponent<SpriteRenderer>().sprite;
+            GameObject.Find("NextShotImage").GetComponent<Image>().sprite = (Resources.Load("Projectiles/Ball") as GameObject).GetComponent<SpriteRenderer>().sprite;
         }
     }
 }

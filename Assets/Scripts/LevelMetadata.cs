@@ -9,5 +9,6 @@ public class LevelMetadata
     public string blurb;
     public string description;
     public int baseScore;
+    public float scoreMultiplier = 1f;
     public int shotsAllowed;
 }

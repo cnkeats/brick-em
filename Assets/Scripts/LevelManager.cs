@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
+[DefaultExecutionOrder(-1)]
 public class LevelManager : MonoBehaviour
 {
     public LevelGenerator levelGenerator;
@@ -15,7 +16,7 @@ public class LevelManager : MonoBehaviour
 
     private PlayerController player;
 
-    private string[] levelList = { "Level_0", "Level_1", "Level_2" };
+    private string[] levelList = { "Level_Basics", "Level_0", "Level_1", "Level_2" };
     private int currentLevelIndex = -1;
 
     public static List<Mino> currentBreakableMinos = new List<Mino>();

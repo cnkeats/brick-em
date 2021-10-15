@@ -44,6 +44,7 @@ public class UIManager : MonoBehaviour
 
     public static void UpdateWithLevel(Level level)
     {
+        levelText = GameObject.Find("LevelText").GetComponent<TMPro.TextMeshProUGUI>();
         levelText.text = level?.levelMetadata.name ?? "-";
     }
 }
