@@ -79,6 +79,12 @@ public class PlayerController : MonoBehaviour
         return nextshot;
     }
 
+    public void GainNextShot(GameObject gameObject)
+    {
+        shotQueue.Insert(0, gameObject);
+        UpdateNextShotImage();
+    }
+
     private void AddDefaultShotToQueue()
     {
         AddShotToQueue("Ball");

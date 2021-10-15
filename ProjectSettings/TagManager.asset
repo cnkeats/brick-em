@@ -9,6 +9,7 @@ TagManager:
   - Mino
   - Shield
   - Ball
+  - Item Slot
   layers:
   - Default
   - TransparentFX

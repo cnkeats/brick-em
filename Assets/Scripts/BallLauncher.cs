@@ -13,13 +13,15 @@ public class BallLauncher : MonoBehaviour
     private float width;
     private InputManager inputManager;
     private BallLauncherState state = BallLauncherState.INACTIVE;
+    private BallLauncherState prelockState;
     private GameObject objectToLaunch;
 
     private enum BallLauncherState
     {
         INACTIVE,
         LOADED,
-        AIMING
+        AIMING,
+        DISABLED
     }
 
     void Awake()
@@ -108,6 +110,19 @@ public class BallLauncher : MonoBehaviour
                 aimLine.positionCount = 2;
                 aimLine.SetPositions(new Vector3[] { objectToLaunch.transform.position, raycastHit.centroid });
             }
+        }
+    }
+
+    public void ToggleLock(bool toggle)
+    {
+        if (toggle)
+        {
+            prelockState = state;
+            state = BallLauncherState.DISABLED;
+        }
+        else
+        {
+            state = prelockState;
         }
     }
 }
