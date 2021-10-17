@@ -61,7 +61,7 @@ public class Ball : MonoBehaviour
     public void Launch(Vector2 aim)
     {
         ballState = BallState.ACTIVE;
-        gameObject.GetComponent<Rigidbody2D>().velocity = aim * launchSpeed;
+        gameObject.GetComponent<Rigidbody2D>().velocity = aim.normalized * launchSpeed;
         transform.up = gameObject.GetComponent<Rigidbody2D>().velocity.normalized;
     }
 

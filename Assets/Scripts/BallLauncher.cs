@@ -96,12 +96,23 @@ public class BallLauncher : MonoBehaviour
         }
         else
         {
-            float clampedTouchedPosition = Mathf.Clamp(touchedPosition.x, -width / 2, width / 2);
-            float percentageAcrossBoundingBox = (clampedTouchedPosition + width / 2) / width;
-            float angle = Mathf.Lerp(-60, 60, percentageAcrossBoundingBox);
-            aim = Quaternion.Euler(0, 0, -angle) * Vector2.up;
+            aim = touchedPosition - (Vector2)transform.position;
 
-            RaycastHit2D raycastHit = Physics2D.CircleCast(objectToLaunch.transform.position, (objectToLaunch.GetComponent<CircleCollider2D>().radius * objectToLaunch.GetComponent<CircleCollider2D>().transform.localScale.x) + Physics2D.defaultContactOffset * 2, aim, 10f, LayerMask.GetMask("Ball", "Shield", "Launcher") ^ 0xFFFF);
+            float angleDifference = Vector2.SignedAngle(aim, Vector2.left);
+            float shotAngleRange = 170f;
+
+            if (angleDifference < 90 - shotAngleRange / 2 && angleDifference > -90)
+            {
+                aim = Quaternion.Euler(0, 0, shotAngleRange / 2).normalized * Vector2.up;
+            }
+            else if (angleDifference > 90 + shotAngleRange / 2 || angleDifference < -90)
+            {
+                aim = Quaternion.Euler(0, 0, -shotAngleRange / 2).normalized * Vector2.up;
+            }
+
+            RaycastHit2D raycastHit = Physics2D.CircleCast(objectToLaunch.transform.position,
+                (objectToLaunch.GetComponent<CircleCollider2D>().radius * objectToLaunch.GetComponent<CircleCollider2D>().transform.localScale.x) + Physics2D.defaultContactOffset * 2,
+                aim, 10f, LayerMask.GetMask("Ball", "Shield", "Launcher") ^ 0xFFFF);
 
             if (raycastHit.collider != null)
             {
