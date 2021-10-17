@@ -2,7 +2,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [DefaultExecutionOrder(-1)]
-public class InputManager : MonoBehaviour {
+public class InputManager : MonoBehaviour
+{
 
     private TouchControls touchControls;
 
@@ -48,7 +49,8 @@ public class InputManager : MonoBehaviour {
     private void StartTouch(InputAction.CallbackContext context)
     {
         //Debug.Log("START");
-        if (OnStartTouch != null) {
+        if (OnStartTouch != null)
+        {
             OnStartTouch(Utils.ScreenToWorld(mainCamera, touchControls.Touch.TouchPosition.ReadValue<Vector2>()), (float)context.startTime);
         }
     }
@@ -65,7 +67,8 @@ public class InputManager : MonoBehaviour {
     private void EndTouch(InputAction.CallbackContext context)
     {
         //Debug.Log("END");
-        if (OnEndTouch != null) {
+        if (OnEndTouch != null)
+        {
             OnEndTouch(Utils.ScreenToWorld(mainCamera, touchControls.Touch.TouchPosition.ReadValue<Vector2>()), (float)context.time);
         }
     }

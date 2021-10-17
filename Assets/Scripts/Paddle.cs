@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Paddle : MonoBehaviour
 {
@@ -66,9 +63,9 @@ public class Paddle : MonoBehaviour
         //Debug.DrawLine(new Vector2(leftBoundary, gameObject.transform.position.y+1), new Vector2(rightboundary, gameObject.transform.position.y+1),Color.magenta);
 
         //Debug.DrawLine(
-            //new Vector2(leftEdge, gameObject.transform.position.y),
-            //new Vector2(rightEdge, gameObject.transform.position.y),
-            //Color.red);
+        //new Vector2(leftEdge, gameObject.transform.position.y),
+        //new Vector2(rightEdge, gameObject.transform.position.y),
+        //Color.red);
 
         //Debug.DrawRay(new Vector2(-5, 2), velocity, Color.yellow);
     }

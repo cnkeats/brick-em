@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +21,7 @@ public class Shield : MonoBehaviour
     {
         Color c1 = Color.Lerp(colors[0], colors[1], (float)currentHits / (maxHits + 1));
         Color c2 = Color.Lerp(colors[1], colors[2], (float)currentHits / (maxHits + 1));
-        GetComponent<SpriteRenderer>().color = Color.Lerp(c1, c2, (float)currentHits / (maxHits+1));
+        GetComponent<SpriteRenderer>().color = Color.Lerp(c1, c2, (float)currentHits / (maxHits + 1));
     }
 
     public void Hit()

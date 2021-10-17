@@ -1,9 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Ball : MonoBehaviour
 {
@@ -74,7 +71,7 @@ public class Ball : MonoBehaviour
         {
             collision.gameObject.GetComponent<Mino>().Hit();
         }
-        
+
         if (collision.gameObject.CompareTag("Shield"))
         {
             collision.gameObject.GetComponent<Shield>().Hit();
@@ -113,7 +110,7 @@ public class Ball : MonoBehaviour
         if (velocity.magnitude != 0)
         {
             Vector2 startingPoint = transform.position;
-            RaycastHit2D raycastHit =  Physics2D.CircleCast(startingPoint, radius + Physics2D.defaultContactOffset * 2, velocity, 10f, LayerMask.GetMask("Ball") ^ 0xFFFF);
+            RaycastHit2D raycastHit = Physics2D.CircleCast(startingPoint, radius + Physics2D.defaultContactOffset * 2, velocity, 10f, LayerMask.GetMask("Ball") ^ 0xFFFF);
 
             MarkPoint(startingPoint, Color.magenta);
 
@@ -137,7 +134,7 @@ public class Ball : MonoBehaviour
 
         Vector2 velocity = gameObject.GetComponent<Rigidbody2D>().velocity;
         Handles.Label(velocityPosition + Vector2.left * 2 + Vector2.down, string.Format("Speed: {0}", velocity.magnitude));
-        Debug.DrawRay(velocityPosition, velocity.normalized/3, Color.yellow);
+        Debug.DrawRay(velocityPosition, velocity.normalized / 3, Color.yellow);
 
         if (ballData.previousPosition != null)
         {
