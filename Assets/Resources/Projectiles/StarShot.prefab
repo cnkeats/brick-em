@@ -12,12 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb903633dd4ddbe46ace4ca6d48588f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  launchSpeed: 5
+  launchSpeed: 8
   speed: 0
-  acceleration: 0
-  speedLimit: 10
-  debugScale: 1
-  debugPersistence: 2
+  speedLimit: 50
   maxBounces: -1
   bounces: 0
   ballState: 1

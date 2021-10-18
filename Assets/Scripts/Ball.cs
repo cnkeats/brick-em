@@ -4,29 +4,19 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    //public float radius;
-
-    //public Vector2 heading = new Vector2(0, -1).normalized;
-    //public Vector2 newHeading;
-
-    //Rigidbody2D rigidbody;
-
     public float launchSpeed = 5.0f;
 
     [SerializeField]
-    public float speed;
-    public float acceleration = 0.0f;
+    private float speed;
     public float speedLimit = 10f;
 
     [Space(20)]
-    [Range(1, 10)]
-    public float debugScale = 1;
-    public float debugPersistence = 2f;
+    [Range(-1, 10)]
     public int maxBounces = -1;
     public int bounces = 0;
 
+    [HideInInspector]
     public BallState ballState = BallState.LAUNCHING;
-
     private BallGizmoDisplayData ballData;
 
     public enum BallState
@@ -91,7 +81,6 @@ public class Ball : MonoBehaviour
         transform.up = gameObject.GetComponent<Rigidbody2D>().velocity.normalized;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (ballState == BallState.ACTIVE)
@@ -112,11 +101,11 @@ public class Ball : MonoBehaviour
             Vector2 startingPoint = transform.position;
             RaycastHit2D raycastHit = Physics2D.CircleCast(startingPoint, radius + Physics2D.defaultContactOffset * 2, velocity, 10f, LayerMask.GetMask("Ball") ^ 0xFFFF);
 
-            MarkPoint(startingPoint, Color.magenta);
+            Utils.MarkPoint(startingPoint, Color.magenta);
 
             if (raycastHit.collider != null)
             {
-                MarkPoint(raycastHit.centroid, Color.red);
+                Utils.MarkPoint(raycastHit.centroid, Color.red, .5f);
                 Debug.DrawRay(raycastHit.point, raycastHit.normal / 4, Color.cyan);
             }
             else
@@ -138,7 +127,7 @@ public class Ball : MonoBehaviour
 
         if (ballData.previousPosition != null)
         {
-            Debug.DrawLine((Vector3)ballData.previousPosition, transform.position, Color.yellow, debugPersistence);
+            Debug.DrawLine((Vector3)ballData.previousPosition, transform.position, Color.yellow, 2f);
         }
 
         ballData.previousPosition = gameObject.transform.position;
@@ -146,12 +135,6 @@ public class Ball : MonoBehaviour
         DrawPrediction();
     }
 #endif
-
-    private void MarkPoint(Vector2 point, Color? color = null, float size = 0.1f, bool persistent = false)
-    {
-        Debug.DrawRay(point + new Vector2(-1, 1).normalized * size, 2 * size * new Vector2(1, -1).normalized, color ?? Color.white, persistent ? debugPersistence : 0);
-        Debug.DrawRay(point + new Vector2(1, 1).normalized * size, 2 * size * new Vector2(-1, -1).normalized, color ?? Color.white, persistent ? debugPersistence : 0);
-    }
 
     public struct BallGizmoDisplayData
     {
