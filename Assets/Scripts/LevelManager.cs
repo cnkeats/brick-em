@@ -13,8 +13,8 @@ public class LevelManager : MonoBehaviour
     private PlayerController player;
     private BallLauncher ballLauncher;
 
-    private string[] levelList = { "Level_SingleMino", "Level_Basics", "Level_0", "Level_1", "Level_2" };
-    private int currentLevelIndex = -1;
+    private string[] levelList = { "Level_Basics", "Level_0", "Level_1", "Level_2" };
+    public int currentLevelIndex = -1;
 
     public static List<Mino> currentBreakableMinos = new List<Mino>();
     public static List<Ball> currentProjectiles = new List<Ball>();

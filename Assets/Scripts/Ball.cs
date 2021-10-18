@@ -69,7 +69,7 @@ public class Ball : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Mino"))
         {
-            collision.gameObject.GetComponent<Mino>().Hit();
+            collision.gameObject.GetComponent<Mino>().Hit(collision);
         }
 
         if (collision.gameObject.CompareTag("Shield"))

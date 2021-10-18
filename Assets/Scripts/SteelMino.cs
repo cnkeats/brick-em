@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class SteelMino : Mino
 {
     public SteelMino()
@@ -6,7 +8,7 @@ public class SteelMino : Mino
         currentHits = 0;
     }
 
-    public override void Hit()
+    public override void Hit(Collision2D collision)
     {
         currentHits++;
     }
