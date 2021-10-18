@@ -11,8 +11,9 @@ public class LevelManager : MonoBehaviour
     public GameObject currentLevelObject;
 
     private PlayerController player;
+    private BallLauncher ballLauncher;
 
-    private string[] levelList = { "Level_Basics", "Level_0", "Level_1", "Level_2" };
+    private string[] levelList = { "Level_SingleMino", "Level_Basics", "Level_0", "Level_1", "Level_2" };
     private int currentLevelIndex = -1;
 
     public static List<Mino> currentBreakableMinos = new List<Mino>();
@@ -23,6 +24,7 @@ public class LevelManager : MonoBehaviour
     public void Awake()
     {
         player = FindObjectOfType<PlayerController>();
+        ballLauncher = FindObjectOfType<BallLauncher>();
 
         if (currentLevelObject != null)
         {
@@ -111,6 +113,11 @@ public class LevelManager : MonoBehaviour
         if (!waitingToLoad)
         {
             CheckForLevelFinished();
+        }
+
+        if (currentProjectiles.Count == 0 && !ballLauncher.isActiveAndEnabled)
+        {
+            ballLauncher.gameObject.SetActive(true);
         }
     }
 

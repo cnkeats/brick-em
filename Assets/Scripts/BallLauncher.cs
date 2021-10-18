@@ -7,25 +7,30 @@ public class BallLauncher : MonoBehaviour
     public LineRenderer aimLine;
     public Vector2 aim;
 
-    private float width;
     private InputManager inputManager;
-    private BallLauncherState state = BallLauncherState.INACTIVE;
+
+    [SerializeField]
+    public BallLauncherState state;
+    [SerializeField]
     private BallLauncherState prelockState;
+
     private GameObject objectToLaunch;
 
-    private enum BallLauncherState
+    private GameObject aimIndicator;
+
+
+    public enum BallLauncherState
     {
         INACTIVE,
         LOADED,
-        AIMING,
-        DISABLED
+        AIMING
     }
 
     void Awake()
     {
         inputManager = GameObject.Find("InputManager").GetComponent<InputManager>();
-        width = gameObject.GetComponent<BoxCollider2D>().bounds.size.x;
         aimLine = gameObject.GetComponent<LineRenderer>();
+        aimIndicator = transform.Find("AimIndicator").gameObject;
     }
 
     private void OnEnable()
@@ -85,6 +90,10 @@ public class BallLauncher : MonoBehaviour
             objectToLaunch = null;
 
             state = BallLauncherState.INACTIVE;
+
+            aimIndicator.transform.localPosition = Vector3.zero;
+
+            gameObject.SetActive(false);
         }
     }
 
@@ -99,7 +108,7 @@ public class BallLauncher : MonoBehaviour
             aim = touchedPosition - (Vector2)transform.position;
 
             float angleDifference = Vector2.SignedAngle(aim, Vector2.left);
-            float shotAngleRange = 170f;
+            float shotAngleRange = 120f;
 
             if (angleDifference < 90 - shotAngleRange / 2 && angleDifference > -90)
             {
@@ -119,19 +128,8 @@ public class BallLauncher : MonoBehaviour
                 aimLine.positionCount = 2;
                 aimLine.SetPositions(new Vector3[] { objectToLaunch.transform.position, raycastHit.centroid });
             }
-        }
-    }
 
-    public void ToggleLock(bool toggle)
-    {
-        if (toggle)
-        {
-            prelockState = state;
-            state = BallLauncherState.DISABLED;
-        }
-        else
-        {
-            state = prelockState;
+            aimIndicator.transform.position = touchedPosition;
         }
     }
 }
