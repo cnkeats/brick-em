@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [DefaultExecutionOrder(-1)]
 public class LevelManager : MonoBehaviour
@@ -19,12 +21,15 @@ public class LevelManager : MonoBehaviour
     public static List<Mino> currentBreakableMinos = new List<Mino>();
     public static List<Ball> currentProjectiles = new List<Ball>();
 
+    private GameObject continueButton;
+
     private bool waitingToLoad = false;
 
     public void Awake()
     {
         player = FindObjectOfType<PlayerController>();
         ballLauncher = FindObjectOfType<BallLauncher>();
+        continueButton = GameObject.Find("Canvas").transform.Find("ContinueButton").gameObject;
 
         if (currentLevelObject != null)
         {
@@ -38,9 +43,18 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void LoadNextLevelButtonClick()
+    public void LoadNextButtonClick()
     {
-        LoadNextLevel();
+        if (currentBreakableMinos.Count == 0)
+        {
+            LoadNextLevel();
+        }
+        else
+        {
+            Debug.Log("You lost :(");
+        }
+
+        continueButton.SetActive(false);
     }
 
     [ContextMenu("Load next level")]
@@ -110,10 +124,24 @@ public class LevelManager : MonoBehaviour
 
     public void Update()
     {
-        if (!waitingToLoad)
+        if (CheckForLevelFinished())
         {
-            CheckForLevelFinished();
+            continueButton.SetActive(true);
+
+            if (currentBreakableMinos.Count == 0)
+            {
+                continueButton.GetComponentInChildren<SpriteRenderer>().material.SetInt("Victory", 1);
+            }
+            else
+            {
+                continueButton.GetComponentInChildren<SpriteRenderer>().material.SetInt("Victory", 0);
+            }
         }
+        else
+        {
+            continueButton.SetActive(false);
+        }
+        
 
         if (currentProjectiles.Count == 0 && !ballLauncher.isActiveAndEnabled)
         {
@@ -121,30 +149,20 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    private void CheckForLevelFinished()
+    private bool CheckForLevelFinished()
     {
-        if (currentProjectiles.Count > 0)
+        if (currentBreakableMinos.Count == 0)
         {
-            return;
-        }
-
-        int minosRemaining = currentBreakableMinos.Count;
-        if (minosRemaining == 0)
-        {
-            Debug.Log("Level complete!");
-
-            Invoke("LoadNextLevel", 2.5f);
-            waitingToLoad = true;
-            return;
+            return true;
         }
 
         int shotsInQueue = PlayerController.shotQueue.Count;
         int levelShotLimit = currentLevel.levelMetadata.shotsAllowed;
-        if (player.usedShots >= levelShotLimit && shotsInQueue == 0)
+        if (player.usedShots >= levelShotLimit && shotsInQueue == 0 && currentProjectiles.Count == 0)
         {
-            Debug.Log("Level failed! :(");
-            Invoke("LoadNextLevel", 2.5f);
-            waitingToLoad = true;
+            return true;
         }
+
+        return false;
     }
 }

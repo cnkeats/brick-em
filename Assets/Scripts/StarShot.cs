@@ -12,10 +12,11 @@ public class StarShot : Ball
         newBall.transform.position = transform.position;
         newBall.transform.localScale = transform.localScale * 0.2f;
 
-        float angle = UnityEngine.Random.Range(-30f, 30f);
+        float angle = Random.Range(-30f, 30f);
 
         newBall.GetComponent<Rigidbody2D>().velocity = Quaternion.Euler(0, 0, angle) * collision.GetContact(0).normal * GetComponent<Rigidbody2D>().velocity.magnitude * 2.0f;
         newBall.GetComponent<TrailRenderer>().widthMultiplier = 0.2f;
         newBall.transform.parent = GameObject.Find("DynamicContent").transform;
+        newBall.name = "Star Shard";
     }
 }
