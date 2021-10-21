@@ -20,7 +20,7 @@ public class AimIndicator : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerController.shotQueue.Count == 0 && ballLauncher.state == BallLauncher.BallLauncherState.INACTIVE)
+        if (PlayerController.shotQueue.Count == 0 &&  ballLauncher.state == BallLauncher.BallLauncherState.INACTIVE)
         {
             spriteRenderer.enabled = false;
         }

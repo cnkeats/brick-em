@@ -39,6 +39,11 @@ public class PlayerController : MonoBehaviour
         {
             AddDefaultShotToQueue();
         }
+
+        if (currentLevel.levelMetadata.shotsAllowed == null)
+        {
+            AddDefaultShotToQueue();
+        }
     }
 
     public void LevelAdvance()
@@ -73,9 +78,14 @@ public class PlayerController : MonoBehaviour
 
     public GameObject PopShotQueue()
     {
-        if (shotQueue.Count == 0)
+        if (shotQueue.Count == 0 && currentLevel.levelMetadata.shotsAllowed != null)
         {
             return null;
+        }
+
+        if (currentLevel.levelMetadata.shotsAllowed == null)
+        {
+            AddDefaultShotToQueue();
         }
 
         GameObject nextshot = shotQueue[0];
