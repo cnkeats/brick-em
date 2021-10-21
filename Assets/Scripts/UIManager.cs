@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
@@ -7,17 +7,20 @@ public class UIManager : MonoBehaviour
     private static TMPro.TextMeshProUGUI scoreAddText;
     private static TMPro.TextMeshProUGUI levelText;
 
+    private LevelManager levelManager;
+
     private void Awake()
     {
         shotsRemainingText = GameObject.Find("ShotsRemainingText").GetComponent<TMPro.TextMeshProUGUI>();
         scoreText = GameObject.Find("ScoreText").GetComponent<TMPro.TextMeshProUGUI>();
         scoreAddText = GameObject.Find("ScoreAddText").GetComponent<TMPro.TextMeshProUGUI>();
         levelText = GameObject.Find("LevelText").GetComponent<TMPro.TextMeshProUGUI>();
+        levelManager = FindObjectOfType<LevelManager>();
     }
 
     public void Update()
     {
-        shotsRemainingText.text = PlayerController.shotQueue.Count.ToString();
+        shotsRemainingText.text = levelManager.currentLevel.levelMetadata.shotsAllowed != null ? PlayerController.shotQueue.Count.ToString() : "∞";
     }
 
     public void DisplayShotQueue()

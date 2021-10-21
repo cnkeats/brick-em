@@ -9,7 +9,7 @@ public class Level_Basics : Level
         levelMetadata.description = "DESCRIPTION TEST";
         levelMetadata.baseScore = 0;
         levelMetadata.scoreMultiplier = 0;
-        levelMetadata.shotsAllowed = 999;
+        levelMetadata.shotsAllowed = null;
 
         SetLevelContentAsPrefabByName();
     }

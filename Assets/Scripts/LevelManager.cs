@@ -23,8 +23,6 @@ public class LevelManager : MonoBehaviour
 
     private GameObject continueButton;
 
-    private bool waitingToLoad = false;
-
     public void Awake()
     {
         player = FindObjectOfType<PlayerController>();
@@ -118,7 +116,6 @@ public class LevelManager : MonoBehaviour
             player.LevelAdvance();
         }
 
-        waitingToLoad = false;
         return currentLevel;
     }
 
@@ -157,7 +154,7 @@ public class LevelManager : MonoBehaviour
         }
 
         int shotsInQueue = PlayerController.shotQueue.Count;
-        int levelShotLimit = currentLevel.levelMetadata.shotsAllowed;
+        int levelShotLimit = currentLevel.levelMetadata.shotsAllowed ?? int.MaxValue;
         if (player.usedShots >= levelShotLimit && shotsInQueue == 0 && currentProjectiles.Count == 0)
         {
             return true;
